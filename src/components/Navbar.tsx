@@ -46,13 +46,17 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
       }`}
     >
       <div className="container-shell flex h-20 items-center">
-        <a href="#top" className="group flex items-center gap-3" aria-label="Matheus Vaz — home">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-700 font-display text-sm font-extrabold text-white shadow-lg shadow-green-900/15 transition-transform group-hover:-translate-y-0.5 dark:bg-green-600">
-            MV
-          </span>
-          <span className="hidden font-display text-sm font-bold tracking-tight text-gray-900 sm:block dark:text-slate-50">
-            Matheus Vaz
-          </span>
+        <a
+          href="#top"
+          className="flex items-center gap-3 font-display text-sm font-bold tracking-tight text-gray-900 dark:text-slate-50"
+          aria-label="Matheus Vaz — home"
+        >
+          <img
+            src="/Teu.jpg"
+            alt=""
+            className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-md dark:border-slate-800"
+          />
+          <span>Matheus Vaz</span>
         </a>
 
         <div className="ml-auto hidden items-center gap-0.5 xl:flex">

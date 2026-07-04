@@ -58,16 +58,17 @@ export function Hero({ language }: HeroProps) {
           </div>
         </div>
 
-        <div className="relative mx-auto hidden w-full max-w-md lg:block" aria-hidden="true">
+        <div className="relative mx-auto hidden w-full max-w-md lg:block">
           <div className="relative aspect-square">
-            <div className="absolute inset-[8%] rounded-[2.5rem] border border-brand-700/15 bg-white/65 shadow-card backdrop-blur-xl dark:border-green-400/15 dark:bg-[#121C16]/70 dark:shadow-card-dark" />
-            <div className="absolute inset-[20%] grid place-items-center rounded-[2rem] bg-brand-700 text-white shadow-2xl shadow-green-900/30 dark:bg-green-700">
-              <span className="font-display text-7xl font-extrabold tracking-[-0.08em]">MV</span>
-            </div>
-            <div className="absolute left-0 top-[15%] rounded-2xl border border-brand-700/15 bg-white px-4 py-3 shadow-card dark:border-green-400/15 dark:bg-[#121C16]">
+            <img
+              src="/Teu.jpg"
+              alt="Matheus Vaz"
+              className="absolute inset-[8%] h-[84%] w-[84%] rounded-[2.5rem] border border-brand-700/15 object-cover shadow-2xl shadow-green-900/20 dark:border-green-400/15"
+            />
+            <div className="absolute left-0 top-[15%] rounded-2xl border border-brand-700/15 bg-white px-4 py-3 shadow-card dark:border-green-400/15 dark:bg-[#121C16]" aria-hidden="true">
               <Icon name="code" className="h-6 w-6 text-brand-700 dark:text-green-400" />
             </div>
-            <div className="absolute bottom-[12%] right-0 rounded-2xl border border-brand-700/15 bg-white px-4 py-3 shadow-card dark:border-green-400/15 dark:bg-[#121C16]">
+            <div className="absolute bottom-[12%] right-0 rounded-2xl border border-brand-700/15 bg-white px-4 py-3 shadow-card dark:border-green-400/15 dark:bg-[#121C16]" aria-hidden="true">
               <Icon name="workflow" className="h-6 w-6 text-brand-700 dark:text-green-400" />
             </div>
             <div className="absolute bottom-0 left-[14%] rounded-full border border-brand-700/15 bg-white px-4 py-2 text-xs font-semibold text-gray-600 shadow-card dark:border-green-400/15 dark:bg-[#121C16] dark:text-slate-300">

@@ -382,7 +382,7 @@ export const translations: Record<Language, PortfolioContent> = {
         'Combino desenvolvimento de software, estratégia de automação e entendimento de processos de negócio para criar soluções práticas que conectam pessoas, sistemas e dados.',
       projectsButton: 'Ver projetos',
       resumeButton: 'Baixar currículo',
-      available: 'Software · Automação · Fluxos com IA',
+      available: 'Desenvolvimento de Software · Automações ',
     },
     about: {
       kicker: 'Sobre mim',
@@ -457,9 +457,9 @@ export const translations: Record<Language, PortfolioContent> = {
     },
     experience: {
       kicker: 'Experiência',
-      title: 'Software e automação aplicados a operações reais',
+      title: 'Software e Automações',
       subtitle:
-        'Uma evolução das bases do desenvolvimento web à automação com IA orientada a negócios.',
+        'Evolução das bases do desenvolvimento web à automação com IA orientada a negócios.',
       items: [
         {
           role: 'Gerente de Automação',
@@ -548,7 +548,7 @@ export const translations: Record<Language, PortfolioContent> = {
           title: 'E-commerce Fruit Shop',
           icon: 'cart',
           description: ['Uma interface de e-commerce de frutas desenvolvida com Next.js, focada em uma experiência de compra simples, limpa e responsiva. O projeto inclui catálogo de produtos, interface bilíngue e interação com carrinho, apresentando uma estrutura moderna de front-end para uma loja online.'],
-          tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'Interface Responsiva', 'E-commerce UI', 'Interface Bilíngue'],
+          tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'E-commerce UI'],
           demo: 'https://fruit-shop-next-js-main.vercel.app',
           github: 'https://github.com/Teuuzim/FruitShop-NextJs-main',
         },
