@@ -446,7 +446,7 @@ export const translations: Record<Language, PortfolioContent> = {
         {
           title: 'Ferramentas & Metodologias',
           icon: 'tools',
-          items: ['Git & Controle de Versão', 'Power BI', 'Microsoft Office', 'SharePoint', 'Princípios SOLID', 'Metodologia Lean'],
+          items: ['Git', 'Office', 'Princípios SOLID', 'Lean', 'Scrum', 'Kanban', 'Scrum Ban'],
         },
         {
           title: 'Idiomas',

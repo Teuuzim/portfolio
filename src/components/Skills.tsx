@@ -10,9 +10,9 @@ export function Skills({ language }: { language: Language }) {
     <section id="skills" className="section-space scroll-mt-20">
       <div className="container-shell">
         <SectionHeading kicker={skills.kicker} title={skills.title} subtitle={skills.subtitle} align="center" />
-        <div className="mt-14 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
           {skills.groups.map((group) => (
-            <article key={group.title} className="card h-full p-7">
+            <article key={group.title} className="card p-7">
               <span className="icon-box">
                 <Icon name={group.icon} />
               </span>
