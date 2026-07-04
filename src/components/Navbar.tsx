@@ -19,7 +19,6 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
     ['about', t.nav.about],
     ['skills', t.nav.skills],
     ['experience', t.nav.experience],
-    ['automation', t.nav.automation],
     ['projects', t.nav.projects],
     ['education', t.nav.education],
     ['contact', t.nav.contact],

@@ -1,5 +1,4 @@
 import { About } from './components/About'
-import { Automation } from './components/Automation'
 import { Contact } from './components/Contact'
 import { Education } from './components/Education'
 import { Experience } from './components/Experience'
@@ -31,7 +30,6 @@ function App() {
         <About language={language} />
         <Skills language={language} />
         <Experience language={language} />
-        <Automation language={language} />
         <Projects language={language} />
         <Education language={language} />
         <Contact language={language} />

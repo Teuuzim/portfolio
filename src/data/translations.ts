@@ -46,7 +46,6 @@ interface PortfolioContent {
     about: string
     skills: string
     experience: string
-    automation: string
     projects: string
     education: string
     contact: string
@@ -78,7 +77,6 @@ interface PortfolioContent {
   focus: { kicker: string; title: string; paragraphs: string[]; pillars: { value: string; label: string }[] }
   skills: { kicker: string; title: string; subtitle: string; groups: SkillGroup[] }
   experience: { kicker: string; title: string; subtitle: string; items: ExperienceItem[] }
-  automation: { kicker: string; title: string; paragraphs: string[]; items: string[] }
   projects: { kicker: string; title: string; subtitle: string; items: ProjectItem[] }
   education: {
     kicker: string
@@ -99,7 +97,6 @@ export const translations: Record<Language, PortfolioContent> = {
       about: 'About',
       skills: 'Skills',
       experience: 'Experience',
-      automation: 'Automation',
       projects: 'Projects',
       education: 'Education',
       contact: 'Contact',
@@ -265,27 +262,6 @@ export const translations: Record<Language, PortfolioContent> = {
         },
       ],
     },
-    automation: {
-      kicker: 'AI automation',
-      title: 'AI Automation & Workflow Engineering',
-      paragraphs: [
-        'I design automation workflows that connect business rules, customer interactions and external systems.',
-        'My automation work goes beyond simple chatbot responses. I structure flows that collect relevant information, qualify users, register data, integrate with CRMs, trigger actions and guide leads to the next step in the process.',
-        'These workflows can support sales teams, customer service operations, scheduling processes, lead qualification, retention strategies and internal business routines.',
-      ],
-      items: [
-        'AI chatbot logic',
-        'Prompt structure and optimization',
-        'Smart lead qualification',
-        'CRM data registration',
-        'Scheduling flows',
-        'Human support routing',
-        'Business rule automation',
-        'Spreadsheet integrations',
-        'Workflow correction and maintenance',
-        'Feature creation for existing bots',
-      ],
-    },
     projects: {
       kicker: 'Selected projects',
       title: 'Products, systems and automation case studies',
@@ -388,7 +364,6 @@ export const translations: Record<Language, PortfolioContent> = {
       about: 'Sobre',
       skills: 'Habilidades',
       experience: 'Experiência',
-      automation: 'Automação',
       projects: 'Projetos',
       education: 'Formação',
       contact: 'Contato',
@@ -552,27 +527,6 @@ export const translations: Record<Language, PortfolioContent> = {
             'Apoio a tarefas internas de desenvolvimento.',
           ],
         },
-      ],
-    },
-    automation: {
-      kicker: 'Automação com IA',
-      title: 'Automação com IA & Engenharia de Fluxos',
-      paragraphs: [
-        'Desenvolvo fluxos de automação que conectam regras de negócio, interações com clientes e sistemas externos.',
-        'Meu trabalho com automação vai além de simples respostas em chatbots. Estruturo fluxos que coletam informações relevantes, qualificam usuários, registram dados, integram com CRMs, disparam ações e direcionam leads para a próxima etapa do processo.',
-        'Esses fluxos podem apoiar equipes comerciais, operações de atendimento, processos de agendamento, qualificação de leads, estratégias de retenção e rotinas internas de negócio.',
-      ],
-      items: [
-        'Lógica de chatbots com IA',
-        'Estruturação e otimização de prompts',
-        'Qualificação inteligente de leads',
-        'Registro de dados em CRMs',
-        'Fluxos de agendamento',
-        'Direcionamento para atendimento humano',
-        'Automação de regras de negócio',
-        'Integrações com planilhas',
-        'Correção e manutenção de fluxos',
-        'Criação de funcionalidades para bots existentes',
       ],
     },
     projects: {
