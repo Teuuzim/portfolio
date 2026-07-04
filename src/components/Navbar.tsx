@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import type { Theme } from '../hooks/useTheme'
 import { Icon } from './Icon'
@@ -68,56 +69,68 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-5">
-          <button
+          <motion.button
             type="button"
             className="control-button min-w-12 px-3 text-xs font-bold"
             onClick={onLanguageToggle}
+            whileTap={{ scale: 0.9 }}
             aria-label={t.nav.language}
             title={t.nav.language}
           >
             {language === 'en' ? 'PT' : 'EN'}
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             type="button"
             className="control-button"
             onClick={onThemeToggle}
+            whileTap={{ scale: 0.9, rotate: -8 }}
             aria-label={t.nav.theme}
             title={t.nav.theme}
           >
             <Icon name={theme === 'light' ? 'moon' : 'sun'} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             type="button"
             className="control-button xl:hidden"
             onClick={() => setOpen((current) => !current)}
+            whileTap={{ scale: 0.9 }}
             aria-expanded={open}
             aria-controls="mobile-navigation"
             aria-label={open ? t.nav.close : t.nav.menu}
           >
             <Icon name={open ? 'close' : 'menu'} />
-          </button>
+          </motion.button>
         </div>
       </div>
 
-      <div
-        id="mobile-navigation"
-        className={`overflow-hidden border-t border-brand-700/10 bg-[#F7FAF8]/98 transition-all duration-300 xl:hidden dark:border-green-400/10 dark:bg-[#080C0A]/98 ${
-          open ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 border-transparent opacity-0'
-        }`}
-      >
-        <div className="container-shell flex flex-col py-4">
-          {links.map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="border-b border-brand-700/10 py-4 text-base font-semibold text-gray-700 last:border-0 hover:text-brand-700 dark:border-green-400/10 dark:text-slate-200 dark:hover:text-green-400"
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-      </div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id="mobile-navigation"
+            className="overflow-hidden border-t border-brand-700/10 bg-[#F7FAF8]/98 xl:hidden dark:border-green-400/10 dark:bg-[#080C0A]/98"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="container-shell flex flex-col py-4">
+              {links.map(([id, label], index) => (
+                <motion.a
+                  key={id}
+                  href={`#${id}`}
+                  className="border-b border-brand-700/10 py-4 text-base font-semibold text-gray-700 last:border-0 hover:text-brand-700 dark:border-green-400/10 dark:text-slate-200 dark:hover:text-green-400"
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.035 }}
+                >
+                  {label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

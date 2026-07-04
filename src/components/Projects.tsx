@@ -1,3 +1,4 @@
+import { motion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
@@ -11,8 +12,16 @@ export function Projects({ language }: { language: Language }) {
       <div className="container-shell">
         <SectionHeading kicker={projects.kicker} title={projects.title} subtitle={projects.subtitle} align="center" />
         <div className="mt-14 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {projects.items.map((project) => (
-            <article key={project.title} className="card group flex h-full flex-col p-7">
+          {projects.items.map((project, index) => (
+            <motion.article
+              key={project.title}
+              className="card group flex h-full flex-col p-7"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -6 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            >
               <span className="icon-box transition-transform duration-300 group-hover:-translate-y-1">
                 <Icon name={project.icon} />
               </span>
@@ -41,7 +50,7 @@ export function Projects({ language }: { language: Language }) {
                   )}
                 </div>
               )}
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

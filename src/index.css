@@ -99,6 +99,13 @@
     linear-gradient(90deg, rgba(22, 101, 52, 0.055) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
+  animation: grid-drift 24s linear infinite;
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 64px 64px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
