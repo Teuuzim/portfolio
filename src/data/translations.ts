@@ -131,7 +131,7 @@ export const translations: Record<Language, PortfolioContent> = {
       title: 'Development experience with a business-first perspective',
       paragraphs: [
         'I am Matheus Henrique Vaz Marques, a Full-Stack Developer and AI Automation Specialist based in Belo Horizonte, Brazil.',
-        'I am currently completing a Bachelor’s degree in Computer Science at FUMEC University and have professional experience in web development, internal systems, automation workflows and AI-powered lead qualification.',
+        'I hold a Bachelor’s degree in Computer Science from FUMEC University and have professional experience in web development, internal systems, automation workflows and AI-powered lead qualification.',
         'My background includes working with ReactJS, Node.js, PHP, JavaScript, MySQL and modern web development tools. I started my professional journey as a Web Development Intern, progressed to Junior Web Developer, and now work with automation initiatives focused on smart funnels, CRM integrations and business workflows.',
         'Today, my main focus is building solutions that help companies automate repetitive tasks, organize lead information, connect CRMs, improve customer service processes and support better decision-making through technology.',
       ],
@@ -269,12 +269,22 @@ export const translations: Record<Language, PortfolioContent> = {
         'A mix of public applications and professional workflow solutions built around practical needs.',
       items: [
         {
-          title: 'Notion React Clone',
-          icon: 'layers',
-          description: ['A Notion-inspired productivity interface built with React, TypeScript and Vite. The project focuses on creating a modern, responsive and clean user experience, reproducing core visual concepts of a workspace/document management platform.'],
-          tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Front-End Development', 'Responsive Interface'],
-          demo: 'https://notion-react.vercel.app',
-          github: 'https://github.com/Teuuzim/notion-react',
+          title: 'Eco Gold',
+          icon: 'briefcase',
+          description: [
+            'A commercial website developed for Eco Gold, a company specializing in buying and appraising gold and jewelry. The project was structured to present the brand’s services clearly and reliably, make it easier for potential customers to get in touch, and guide users toward requesting an appraisal of their items. The page reinforces the company’s credibility, organizes its key information and supports lead generation for the sales team.',
+          ],
+          tags: ['Landing Page', 'Corporate Website'],
+          demo: 'https://www.ecogoldoficial.com.br',
+        },
+        {
+          title: 'In and Out Beauty',
+          icon: 'globe',
+          description: [
+            'A website developed for Ana Clara Filgueiras to present the In and Out Beauty mentorship program. The project was structured to communicate the brand’s concept with elegance and sensitivity, highlighting themes such as self-esteem, identity, beauty and personal expression. The page organizes the program’s key information, establishes authority and guides interested visitors toward learning more and submitting an application.',
+          ],
+          tags: ['Personal Brand', 'Visual Identity'],
+          demo: 'https://anaclarafilgueiras.com.br',
         },
         {
           title: 'Fruit Shop E-commerce',
@@ -285,22 +295,12 @@ export const translations: Record<Language, PortfolioContent> = {
           github: 'https://github.com/Teuuzim/FruitShop-NextJs-main',
         },
         {
-          title: 'AI Lead Qualification Funnel',
-          icon: 'bot',
-          description: [
-            'An AI-powered automation flow designed to interact with leads, collect relevant information, qualify opportunities and guide users toward scheduling or human support.',
-            'The flow was structured to improve response time, organize lead data and help the sales team focus on more qualified opportunities.',
-          ],
-          tags: ['AI workflows', 'Lead qualification', 'CRM integration', 'Business rules', 'Scheduling automation'],
-        },
-        {
-          title: 'CRM Integration Workflows',
-          icon: 'link',
-          description: [
-            'Automation workflows created to connect chatbot interactions with CRM platforms such as Pipedrive, Kommo and other tools used by businesses.',
-            'These integrations help register lead information, update opportunities and keep commercial teams aligned with customer interactions.',
-          ],
-          tags: ['CRM integrations', 'API logic', 'Data registration', 'Workflow automation', 'Business process automation'],
+          title: 'Notion React Clone',
+          icon: 'layers',
+          description: ['A Notion-inspired productivity interface built with React, TypeScript and Vite. The project focuses on creating a modern, responsive and clean user experience, reproducing core visual concepts of a workspace/document management platform.'],
+          tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+          demo: 'https://notion-react.vercel.app',
+          github: 'https://github.com/Teuuzim/notion-react',
         },
         {
           title: 'Business Rule Chatbot Flows',
@@ -310,15 +310,6 @@ export const translations: Record<Language, PortfolioContent> = {
             'These flows are designed to understand user intent, collect the right information, apply decision logic and direct the conversation to the correct next step.',
           ],
           tags: ['Chatbot architecture', 'Prompt logic', 'Business rules', 'User routing', 'Automation strategy'],
-        },
-        {
-          title: 'Internal Web Systems & CMS Tools',
-          icon: 'layout',
-          description: [
-            'Development and maintenance of internal systems, CMS platforms, intranets, reporting tools and administrative resources for business operations.',
-            'These systems support content management, internal workflows, client management and structured data handling.',
-          ],
-          tags: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'CMS', 'Internal systems'],
         },
         {
           title: 'Data Registration Automation',
