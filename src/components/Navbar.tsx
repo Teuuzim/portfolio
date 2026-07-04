@@ -33,16 +33,34 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    const desktopQuery = window.matchMedia('(min-width: 1280px)')
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false)
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', closeOnEscape)
+    desktopQuery.addEventListener('change', closeOnDesktop)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', closeOnEscape)
+      desktopQuery.removeEventListener('change', closeOnDesktop)
+    }
   }, [open])
 
   return (
     <nav
       aria-label="Primary navigation"
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? 'border-brand-700/10 bg-[#F7FAF8]/90 shadow-sm backdrop-blur-xl dark:border-green-400/10 dark:bg-[#080C0A]/90'
+        scrolled || open
+          ? 'border-brand-700/10 bg-[#F7FAF8] shadow-sm dark:border-green-400/10 dark:bg-[#080C0A]'
           : 'border-transparent bg-transparent'
       }`}
     >
@@ -107,7 +125,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
         {open && (
           <motion.div
             id="mobile-navigation"
-            className="overflow-hidden border-t border-brand-700/10 bg-[#F7FAF8]/98 xl:hidden dark:border-green-400/10 dark:bg-[#080C0A]/98"
+            className="max-h-[calc(100dvh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-brand-700/10 bg-[#F7FAF8] xl:hidden dark:border-green-400/10 dark:bg-[#080C0A]"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
