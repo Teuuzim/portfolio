@@ -116,7 +116,7 @@ export const translations: Record<Language, PortfolioContent> = {
       linkedin: 'LinkedIn',
     },
     hero: {
-      eyebrow: 'Belo Horizonte, Brazil · Open to opportunities',
+      eyebrow: 'Open to opportunities',
       title: 'Full-Stack Developer & AI Automation Specialist',
       description:
         'I create web systems, CRM integrations and AI-powered workflows that help businesses automate operations, qualify leads and improve customer interactions.',
@@ -130,7 +130,7 @@ export const translations: Record<Language, PortfolioContent> = {
       kicker: 'About me',
       title: 'Development experience with a business-first perspective',
       paragraphs: [
-        'I am Matheus Henrique Vaz Marques, a Full-Stack Developer and AI Automation Specialist based in Belo Horizonte, Brazil.',
+        'I am Matheus Henrique Vaz Marques, a Full-Stack Developer and AI Automation Specialist.',
         'I hold a Bachelor’s degree in Computer Science from FUMEC University and have professional experience in web development, internal systems, automation workflows and AI-powered lead qualification.',
         'My background includes working with ReactJS, Node.js, PHP, JavaScript, MySQL and modern web development tools. I started my professional journey as a Web Development Intern, progressed to Junior Web Developer, and now work with automation initiatives focused on smart funnels, CRM integrations and business workflows.',
         'Today, my main focus is building solutions that help companies automate repetitive tasks, organize lead information, connect CRMs, improve customer service processes and support better decision-making through technology.',
@@ -374,7 +374,7 @@ export const translations: Record<Language, PortfolioContent> = {
       linkedin: 'LinkedIn',
     },
     hero: {
-      eyebrow: 'Belo Horizonte, Brasil · Aberto a oportunidades',
+      eyebrow: 'Aberto a oportunidades',
       title: 'Desenvolvedor Full-Stack & Especialista em Automação com IA',
       description:
         'Crio sistemas web, integrações com CRMs e fluxos com inteligência artificial que ajudam empresas a automatizar operações, qualificar leads e melhorar o atendimento ao cliente.',

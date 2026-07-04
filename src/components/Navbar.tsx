@@ -48,7 +48,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
       <div className="container-shell flex h-20 items-center">
         <a
           href="#top"
-          className="flex items-center gap-3 font-display text-sm font-bold tracking-tight text-gray-900 dark:text-slate-50"
+          className="flex shrink-0 items-center gap-3 font-display text-sm font-bold tracking-tight text-gray-900 dark:text-slate-50"
           aria-label="Matheus Vaz — home"
         >
           <img
@@ -56,7 +56,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
             alt=""
             className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-md dark:border-slate-800"
           />
-          <span>Matheus Vaz</span>
+          <span className="hidden sm:inline">Matheus Vaz</span>
         </a>
 
         <div className="ml-auto hidden items-center gap-0.5 xl:flex">
@@ -67,7 +67,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
           ))}
         </div>
 
-        <div className="ml-auto flex items-center gap-2 xl:ml-5">
+        <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-5">
           <button
             type="button"
             className="control-button min-w-12 px-3 text-xs font-bold"
