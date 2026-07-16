@@ -12,7 +12,7 @@ export function Education({ language }: { language: Language }) {
         <SectionHeading kicker={education.kicker} title={education.title} />
         <article className="card p-7 sm:p-9">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-700 text-white shadow-lg shadow-green-900/15 dark:bg-green-700">
+            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-700 text-white shadow-lg shadow-emerald-950/15 dark:bg-emerald-300 dark:text-[#071510]">
               <Icon name="graduation" className="h-7 w-7" />
             </span>
             <div>

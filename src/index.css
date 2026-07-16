@@ -19,15 +19,15 @@
   }
 
   body {
-    @apply m-0 min-w-80 bg-[#F7FAF8] font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-[#080C0A] dark:text-slate-50;
+    @apply m-0 min-w-80 bg-[#F4F8F5] font-sans text-[#153329] antialiased transition-colors duration-300 dark:bg-[#071510] dark:text-slate-50;
   }
 
   ::selection {
-    @apply bg-green-700 text-white dark:bg-green-500 dark:text-gray-950;
+    @apply bg-emerald-300 text-[#071510];
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-green-600 ring-offset-2 ring-offset-[#F7FAF8] dark:ring-green-400 dark:ring-offset-[#080C0A];
+    @apply outline-none ring-2 ring-emerald-600 ring-offset-2 ring-offset-[#F4F8F5] dark:ring-emerald-300 dark:ring-offset-[#071510];
   }
 }
 
@@ -41,7 +41,7 @@
   }
 
   .section-kicker {
-    @apply mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-700 dark:text-green-400;
+    @apply mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700 dark:text-emerald-300;
   }
 
   .section-title {
@@ -53,39 +53,39 @@
   }
 
   .card {
-    @apply rounded-2xl border border-brand-700/15 bg-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-700/30 dark:border-green-400/15 dark:bg-[#121C16] dark:shadow-card-dark dark:hover:border-green-400/30;
+    @apply rounded-[1.25rem] border border-[#C8DED0] bg-white shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/50 dark:border-white/10 dark:bg-[#0D211A] dark:shadow-card-dark dark:hover:border-emerald-300/35;
   }
 
   .icon-box {
-    @apply grid h-11 w-11 place-items-center rounded-xl bg-brand-700/10 text-brand-700 dark:bg-green-400/10 dark:text-green-400;
+    @apply grid h-11 w-11 place-items-center rounded-xl bg-brand-500/10 text-brand-700 dark:bg-emerald-300/10 dark:text-emerald-300;
   }
 
   .nav-link {
-    @apply rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-brand-700/5 hover:text-brand-700 dark:text-slate-300 dark:hover:bg-green-400/5 dark:hover:text-green-400;
+    @apply rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:bg-brand-500/5 hover:text-brand-700 dark:text-slate-300 dark:hover:bg-emerald-300/5 dark:hover:text-emerald-300;
   }
 
   .control-button {
-    @apply grid h-10 w-10 place-items-center rounded-xl border border-brand-700/15 bg-white/70 text-brand-700 transition-all hover:border-brand-700/35 hover:bg-brand-700/5 dark:border-green-400/15 dark:bg-[#121C16]/70 dark:text-green-400 dark:hover:border-green-400/35 dark:hover:bg-green-400/10;
+    @apply grid h-10 w-10 place-items-center rounded-xl border border-brand-700/15 bg-white/80 text-brand-700 transition-all hover:border-brand-500/50 hover:bg-brand-500/5 dark:border-white/10 dark:bg-[#0D211A]/80 dark:text-emerald-300 dark:hover:border-emerald-300/35;
   }
 
   .button-primary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-green-900/15 transition-all hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-xl dark:bg-green-700 dark:hover:bg-green-600;
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/15 transition-all hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-xl dark:bg-emerald-300 dark:text-[#071510] dark:hover:bg-emerald-200;
   }
 
   .button-secondary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-brand-700/20 bg-white/70 px-5 py-3 text-sm font-bold text-gray-800 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-green-400/20 dark:bg-[#121C16]/70 dark:text-slate-100 dark:hover:border-green-400/40 dark:hover:text-green-400;
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-brand-700/20 bg-white/80 px-5 py-3 text-sm font-bold text-[#153329] shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-white/15 dark:bg-[#0D211A]/80 dark:text-slate-100 dark:hover:border-emerald-300/40 dark:hover:text-emerald-300;
   }
 
   .button-icon {
-    @apply grid h-12 w-12 place-items-center rounded-xl border border-brand-700/20 bg-white/70 text-gray-700 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-green-400/20 dark:bg-[#121C16]/70 dark:text-slate-200 dark:hover:border-green-400/40 dark:hover:text-green-400;
+    @apply grid h-12 w-12 place-items-center rounded-xl border border-brand-700/20 bg-white/80 text-slate-700 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-white/15 dark:bg-[#0D211A]/80 dark:text-slate-200 dark:hover:border-emerald-300/40 dark:hover:text-emerald-300;
   }
 
   .tag {
-    @apply rounded-full border border-brand-700/10 bg-brand-700/[0.06] px-3 py-1.5 text-[11px] font-semibold leading-none text-brand-700 dark:border-green-400/10 dark:bg-green-400/[0.08] dark:text-green-400;
+    @apply rounded-full border border-brand-700/10 bg-brand-500/[0.07] px-3 py-1.5 font-mono text-[10px] font-semibold leading-none text-brand-700 dark:border-emerald-300/10 dark:bg-emerald-300/[0.08] dark:text-emerald-300;
   }
 
   .project-link {
-    @apply inline-flex items-center gap-2 rounded-lg text-sm font-bold text-brand-700 transition-colors hover:text-brand-600 dark:text-green-400 dark:hover:text-green-300;
+    @apply inline-flex items-center gap-2 rounded-lg text-sm font-bold text-brand-700 transition-colors hover:text-brand-600 dark:text-emerald-300 dark:hover:text-emerald-200;
   }
 
   .skip-link {
@@ -95,16 +95,52 @@
 
 .hero-grid {
   background-image:
-    linear-gradient(rgba(22, 101, 52, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 101, 52, 0.055) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(rgba(22, 132, 91, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 132, 91, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
   mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
   animation: grid-drift 24s linear infinite;
 }
 
 @keyframes grid-drift {
   to {
-    background-position: 64px 64px;
+    background-position: 72px 72px;
+  }
+}
+
+.identity-orbit::before,
+.identity-orbit::after {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border-radius: 9999px;
+  border: 1px dashed rgba(22, 132, 91, 0.18);
+  pointer-events: none;
+}
+
+.identity-orbit::after {
+  inset: 3%;
+  border-style: solid;
+  border-color: rgba(22, 132, 91, 0.08);
+}
+
+.orbit-copy {
+  animation: orbit-spin 24s linear infinite;
+  transform-origin: center;
+}
+
+.identity-orbit img {
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), filter 600ms ease;
+}
+
+.identity-orbit:hover img {
+  transform: scale(1.045);
+  filter: saturate(1.08);
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

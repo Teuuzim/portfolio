@@ -72,6 +72,7 @@ interface PortfolioContent {
     projectsButton: string
     resumeButton: string
     available: string
+    orbit: string
   }
   about: { kicker: string; title: string; paragraphs: string[] }
   focus: { kicker: string; title: string; paragraphs: string[]; pillars: { value: string; label: string }[] }
@@ -124,7 +125,8 @@ export const translations: Record<Language, PortfolioContent> = {
         'I combine software development, automation strategy and business process understanding to build practical solutions that connect people, systems and data.',
       projectsButton: 'View projects',
       resumeButton: 'Download resume',
-      available: 'Software · Automation · AI workflows',
+      available: 'Software Development · Automation',
+      orbit: 'Full-Stack Development · AI Automation · CRM Integrations ·',
     },
     about: {
       kicker: 'About me',
@@ -188,7 +190,7 @@ export const translations: Record<Language, PortfolioContent> = {
         {
           title: 'Tools & Methodologies',
           icon: 'tools',
-          items: ['Git & Version Control', 'Power BI', 'Microsoft Office', 'SharePoint', 'SOLID Principles', 'Lean Methodology'],
+          items: ['Git', 'Microsoft Office', 'SOLID Principles', 'Lean', 'Scrum', 'Kanban', 'Scrumban'],
         },
         {
           title: 'Languages',
@@ -199,7 +201,7 @@ export const translations: Record<Language, PortfolioContent> = {
     },
     experience: {
       kicker: 'Experience',
-      title: 'Building software and automation in real operations',
+      title: 'Software & Automation',
       subtitle:
         'A progression from web development foundations to business-focused AI automation.',
       items: [
@@ -290,7 +292,7 @@ export const translations: Record<Language, PortfolioContent> = {
           title: 'Fruit Shop E-commerce',
           icon: 'cart',
           description: ['A fresh fruit e-commerce interface built with Next.js, focused on a simple, clean and responsive shopping experience. The project includes a product catalog, bilingual interface and shopping cart interaction, presenting a modern front-end structure for an online store.'],
-          tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'Responsive Interface', 'E-commerce UI', 'Bilingual Interface'],
+          tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'E-commerce UI'],
           demo: 'https://fruit-shop-next-js-main.vercel.app',
           github: 'https://github.com/Teuuzim/FruitShop-NextJs-main',
         },
@@ -383,6 +385,7 @@ export const translations: Record<Language, PortfolioContent> = {
       projectsButton: 'Ver projetos',
       resumeButton: 'Baixar currículo',
       available: 'Desenvolvimento de Software · Automações ',
+      orbit: 'Desenvolvimento Full-Stack · Automação com IA · Integrações com CRM ·',
     },
     about: {
       kicker: 'Sobre mim',
@@ -568,15 +571,6 @@ export const translations: Record<Language, PortfolioContent> = {
             'Esses fluxos são projetados para entender a intenção do usuário, coletar as informações corretas, aplicar lógica de decisão e direcionar a conversa para a próxima etapa adequada.',
           ],
           tags: ['Arquitetura de chatbot', 'Lógica de prompts', 'Regras de negócio', 'Direcionamento de usuários', 'Estratégia de automação'],
-        },
-        {
-          title: 'Automação de Registro de Dados',
-          icon: 'sheet',
-          description: [
-            'Processos de automação focados em coletar, organizar e registrar dados em planilhas, CRMs e plataformas externas.',
-            'Esses fluxos ajudam a reduzir trabalho manual, melhorar a consistência das informações e apoiar o acompanhamento feito pelas equipes internas.',
-          ],
-          tags: ['Automação de dados', 'Planilhas', 'Registro em CRM', 'Lógica de fluxo', 'Otimização de processos'],
         },
       ],
     },

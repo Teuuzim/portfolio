@@ -60,7 +60,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
       aria-label="Primary navigation"
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         scrolled || open
-          ? 'border-brand-700/10 bg-[#F7FAF8] shadow-sm dark:border-green-400/10 dark:bg-[#080C0A]'
+          ? 'border-brand-700/10 bg-[#F4F8F5]/95 shadow-sm backdrop-blur dark:border-emerald-300/10 dark:bg-[#071510]/95'
           : 'border-transparent bg-transparent'
       }`}
     >
@@ -125,7 +125,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
         {open && (
           <motion.div
             id="mobile-navigation"
-            className="max-h-[calc(100dvh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-brand-700/10 bg-[#F7FAF8] xl:hidden dark:border-green-400/10 dark:bg-[#080C0A]"
+            className="max-h-[calc(100dvh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-brand-700/10 bg-[#F4F8F5] xl:hidden dark:border-emerald-300/10 dark:bg-[#071510]"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

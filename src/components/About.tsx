@@ -21,7 +21,7 @@ export function About({ language }: { language: Language }) {
         </div>
       </section>
 
-      <section className="section-space bg-[#EEF6F0] dark:bg-[#0E1511]">
+      <section className="section-space bg-[#E7F2EA] dark:bg-[#091B15]">
         <div className="container-shell grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
           <div>
             <SectionHeading kicker={focus.kicker} title={focus.title} />
@@ -37,7 +37,7 @@ export function About({ language }: { language: Language }) {
           <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
             {focus.pillars.map((pillar, index) => (
               <div key={pillar.value} className="card flex items-center gap-5 p-6">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-700 text-white dark:bg-green-700">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-700 text-white dark:bg-emerald-300 dark:text-[#071510]">
                   <Icon name={index === 0 ? 'code' : index === 1 ? 'database' : 'spark'} />
                 </span>
                 <div>

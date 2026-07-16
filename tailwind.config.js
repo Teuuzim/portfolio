@@ -6,20 +6,21 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#EEF6F0',
-          100: '#DCFCE7',
-          500: '#16A34A',
-          600: '#15803D',
-          700: '#166534',
-          900: '#0E3A20',
+          50: '#EDF8F1',
+          100: '#D5F0DF',
+          500: '#16845B',
+          600: '#11704D',
+          700: '#0C5C42',
+          900: '#073B2D',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Manrope', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['IBM Plex Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'IBM Plex Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
-        card: '0 18px 50px -30px rgba(22, 101, 52, 0.35)',
+        card: '0 22px 60px -36px rgba(7, 59, 45, 0.38)',
         'card-dark': '0 18px 50px -30px rgba(0, 0, 0, 0.8)',
       },
     },

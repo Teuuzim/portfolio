@@ -6,7 +6,7 @@ export function Footer({ language }: { language: Language }) {
   const { footer } = translations[language]
 
   return (
-    <footer className="border-t border-brand-700/10 bg-[#F7FAF8] py-10 dark:border-green-400/10 dark:bg-[#080C0A]">
+    <footer className="border-t border-brand-700/10 bg-[#F4F8F5] py-10 dark:border-emerald-300/10 dark:bg-[#071510]">
       <div className="container-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <div className="max-w-2xl">
           <a href="#top" className="inline-flex items-center gap-3 font-display text-lg font-bold text-gray-900 dark:text-slate-50">

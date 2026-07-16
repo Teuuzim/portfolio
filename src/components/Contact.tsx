@@ -11,11 +11,11 @@ export function Contact({ language }: { language: Language }) {
   ]
 
   return (
-    <section id="contact" className="section-space scroll-mt-20 bg-[#EEF6F0] dark:bg-[#0E1511]">
+    <section id="contact" className="section-space scroll-mt-20 bg-[#E7F2EA] dark:bg-[#091B15]">
       <div className="container-shell">
         <div className="grid overflow-hidden rounded-[2rem] border border-brand-700/15 bg-white shadow-card lg:grid-cols-[0.9fr_1.1fr] dark:border-green-400/15 dark:bg-[#121C16] dark:shadow-card-dark">
-          <div className="bg-brand-700 p-8 text-white sm:p-10 lg:p-12 dark:bg-green-800">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-green-200">{contact.kicker}</p>
+          <div className="bg-[#073B2D] p-8 text-white sm:p-10 lg:p-12 dark:bg-[#062A20]">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">{contact.kicker}</p>
             <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{contact.title}</h2>
             <div className="mt-6 space-y-4 leading-7 text-green-50/80">
               {contact.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

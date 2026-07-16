@@ -22,7 +22,7 @@ export function Skills({ language }: { language: Language }) {
               <ul className="mt-5 space-y-3">
                 {group.items.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
-                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600 dark:bg-green-400" />
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500 dark:bg-emerald-300" />
                     {item}
                   </li>
                 ))}

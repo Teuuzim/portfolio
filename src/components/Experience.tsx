@@ -9,7 +9,7 @@ export function Experience({ language }: { language: Language }) {
   const [expanded, setExpanded] = useState<number | null>(0)
 
   return (
-    <section id="experience" className="section-space scroll-mt-20 bg-[#EEF6F0] dark:bg-[#0E1511]">
+    <section id="experience" className="section-space scroll-mt-20 bg-[#E7F2EA] dark:bg-[#091B15]">
       <div className="container-shell">
         <SectionHeading
           kicker={experience.kicker}
@@ -19,7 +19,7 @@ export function Experience({ language }: { language: Language }) {
         />
 
         <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="absolute bottom-5 left-[19px] top-5 w-px bg-brand-700/25 md:left-1/2 dark:bg-green-400/20" aria-hidden="true" />
+          <div className="absolute bottom-5 left-[19px] top-5 w-px bg-brand-700/25 md:left-1/2 dark:bg-emerald-300/20" aria-hidden="true" />
           <div className="space-y-10 md:space-y-14">
             {experience.items.map((item, index) => {
               const isExpanded = expanded === index
@@ -31,7 +31,7 @@ export function Experience({ language }: { language: Language }) {
                   }`}
                 >
                   <span
-                    className={`absolute left-2.5 top-7 z-10 grid h-5 w-5 place-items-center rounded-full border-4 border-[#EEF6F0] bg-brand-700 md:left-auto dark:border-[#0E1511] dark:bg-green-500 ${
+                    className={`absolute left-2.5 top-7 z-10 grid h-5 w-5 place-items-center rounded-full border-4 border-[#E7F2EA] bg-brand-700 md:left-auto dark:border-[#091B15] dark:bg-emerald-300 ${
                       index % 2 === 0 ? 'md:-right-2.5' : 'md:-left-2.5'
                     }`}
                     aria-hidden="true"
