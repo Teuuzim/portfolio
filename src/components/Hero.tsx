@@ -59,7 +59,11 @@ export function Hero({ language }: HeroProps) {
               {t.hero.projectsButton}
               <Icon name="arrow" className="h-4 w-4" />
             </a>
-            <a href="/resume.pdf" download className="button-secondary">
+            <a
+              href={language === 'pt' ? '/Curriculo_Matheus_Vaz_PT.pdf' : '/resume.pdf'}
+              download
+              className="button-secondary"
+            >
               <Icon name="download" className="h-4 w-4" />
               {t.hero.resumeButton}
             </a>
