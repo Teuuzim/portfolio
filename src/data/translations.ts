@@ -63,6 +63,8 @@ interface PortfolioContent {
     email: string
     github: string
     linkedin: string
+    scrollHint: string
+    galleryHint: string
   }
   hero: {
     eyebrow: string
@@ -115,6 +117,8 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      scrollHint: 'Scroll',
+      galleryHint: 'Keep scrolling to browse',
     },
     hero: {
       eyebrow: 'Open to opportunities',
@@ -374,6 +378,8 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      scrollHint: 'Role',
+      galleryHint: 'Continue rolando para navegar',
     },
     hero: {
       eyebrow: 'Aberto a oportunidades',
@@ -571,6 +577,15 @@ export const translations: Record<Language, PortfolioContent> = {
             'Esses fluxos são projetados para entender a intenção do usuário, coletar as informações corretas, aplicar lógica de decisão e direcionar a conversa para a próxima etapa adequada.',
           ],
           tags: ['Arquitetura de chatbot', 'Lógica de prompts', 'Regras de negócio', 'Direcionamento de usuários', 'Estratégia de automação'],
+        },
+        {
+          title: 'Automação de Registro de Dados',
+          icon: 'sheet',
+          description: [
+            'Processos de automação focados em coletar, organizar e registrar dados em planilhas, CRMs e plataformas externas.',
+            'Esses fluxos ajudam a reduzir o trabalho manual, melhorar a consistência dos dados e apoiar um acompanhamento melhor pelas equipes internas.',
+          ],
+          tags: ['Automação de dados', 'Planilhas', 'Registro em CRM', 'Lógica de fluxo', 'Otimização de processos'],
         },
       ],
     },

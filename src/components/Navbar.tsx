@@ -12,9 +12,12 @@ interface NavbarProps {
   onThemeToggle: () => void
 }
 
+const SECTION_IDS = ['about', 'skills', 'experience', 'projects', 'education', 'contact']
+
 export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeId, setActiveId] = useState('')
   const t = translations[language]
   const links = [
     ['about', t.nav.about],
@@ -30,6 +33,30 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
     update()
     window.addEventListener('scroll', update, { passive: true })
     return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  useEffect(() => {
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (section): section is HTMLElement => section !== null,
+    )
+    if (!sections.length) return
+
+    // Only a narrow band across the middle of the viewport counts as "current",
+    // so the highlight tracks what the reader is actually looking at.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting)
+        if (!visible.length) return
+        const topMost = visible.reduce((closest, entry) =>
+          entry.boundingClientRect.top < closest.boundingClientRect.top ? entry : closest,
+        )
+        setActiveId(topMost.target.id)
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -60,7 +87,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
       aria-label="Primary navigation"
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         scrolled || open
-          ? 'border-brand-700/10 bg-[#F4F8F5]/95 shadow-sm backdrop-blur dark:border-emerald-300/10 dark:bg-[#071510]/95'
+          ? 'border-brand-700/10 bg-canvas/95 shadow-sm backdrop-blur dark:border-emerald-300/10'
           : 'border-transparent bg-transparent'
       }`}
     >
@@ -80,7 +107,12 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
 
         <div className="ml-auto hidden items-center gap-0.5 xl:flex">
           {links.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="nav-link">
+            <a
+              key={id}
+              href={`#${id}`}
+              className="nav-link"
+              aria-current={activeId === id ? 'true' : undefined}
+            >
               {label}
             </a>
           ))}
@@ -125,7 +157,7 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
         {open && (
           <motion.div
             id="mobile-navigation"
-            className="max-h-[calc(100dvh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-brand-700/10 bg-[#F4F8F5] xl:hidden dark:border-emerald-300/10 dark:bg-[#071510]"
+            className="max-h-[calc(100dvh-5rem)] overflow-x-hidden overflow-y-auto overscroll-contain border-t border-brand-700/10 bg-canvas xl:hidden dark:border-emerald-300/10"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

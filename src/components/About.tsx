@@ -21,7 +21,7 @@ export function About({ language }: { language: Language }) {
         </div>
       </section>
 
-      <section className="section-space bg-[#E7F2EA] dark:bg-[#091B15]">
+      <section className="section-space bg-panel">
         <div className="container-shell grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
           <div>
             <SectionHeading kicker={focus.kicker} title={focus.title} />

@@ -6,7 +6,7 @@ const STORAGE_KEY = 'portfolio-theme'
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() =>
-    localStorage.getItem(STORAGE_KEY) === 'dark' ? 'dark' : 'light',
+    localStorage.getItem(STORAGE_KEY) === 'light' ? 'light' : 'dark',
   )
 
   useEffect(() => {

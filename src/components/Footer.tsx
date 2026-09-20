@@ -1,12 +1,13 @@
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
+import { MagneticButton } from './interactive/MagneticButton'
 
 export function Footer({ language }: { language: Language }) {
   const { footer } = translations[language]
 
   return (
-    <footer className="border-t border-brand-700/10 bg-[#F4F8F5] py-10 dark:border-emerald-300/10 dark:bg-[#071510]">
+    <footer className="border-t border-brand-700/10 bg-canvas py-10 dark:border-emerald-300/10">
       <div className="container-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <div className="max-w-2xl">
           <a href="#top" className="inline-flex items-center gap-3 font-display text-lg font-bold text-gray-900 dark:text-slate-50">
@@ -18,10 +19,10 @@ export function Footer({ language }: { language: Language }) {
             © {new Date().getFullYear()} Matheus Henrique Vaz Marques. {footer.rights}
           </p>
         </div>
-        <a href="#top" className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-600 dark:text-green-400 dark:hover:text-green-300">
+        <MagneticButton href="#top" className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-600 dark:text-green-400 dark:hover:text-green-300">
           {footer.backToTop}
           <Icon name="arrow" className="h-4 w-4 -rotate-90" />
-        </a>
+        </MagneticButton>
       </div>
     </footer>
   )

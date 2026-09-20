@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
@@ -9,7 +10,7 @@ export function Experience({ language }: { language: Language }) {
   const [expanded, setExpanded] = useState<number | null>(0)
 
   return (
-    <section id="experience" className="section-space scroll-mt-20 bg-[#E7F2EA] dark:bg-[#091B15]">
+    <section id="experience" className="section-space scroll-mt-20 bg-panel">
       <div className="container-shell">
         <SectionHeading
           kicker={experience.kicker}
@@ -24,14 +25,18 @@ export function Experience({ language }: { language: Language }) {
             {experience.items.map((item, index) => {
               const isExpanded = expanded === index
               return (
-                <article
+                <motion.article
                   key={`${item.company}-${item.role}`}
                   className={`relative pl-14 md:w-1/2 md:pl-0 ${
                     index % 2 === 0 ? 'md:pr-12' : 'md:ml-auto md:pl-12'
                   }`}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <span
-                    className={`absolute left-2.5 top-7 z-10 grid h-5 w-5 place-items-center rounded-full border-4 border-[#E7F2EA] bg-brand-700 md:left-auto dark:border-[#091B15] dark:bg-emerald-300 ${
+                    className={`absolute left-2.5 top-7 z-10 grid h-5 w-5 place-items-center rounded-full border-4 border-panel bg-brand-700 md:left-auto dark:bg-emerald-300 ${
                       index % 2 === 0 ? 'md:-right-2.5' : 'md:-left-2.5'
                     }`}
                     aria-hidden="true"
@@ -72,20 +77,28 @@ export function Experience({ language }: { language: Language }) {
                         className={`ml-auto h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                       />
                     </button>
-                    <div className={`grid transition-[grid-template-rows] duration-300 ${isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                      <div className="overflow-hidden">
-                        <ul className="space-y-3 pt-5">
-                          {item.activities.map((activity) => (
-                            <li key={activity} className="flex items-start gap-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
-                              <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
-                              {activity}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          className="overflow-hidden"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <ul className="space-y-3 pt-5">
+                            {item.activities.map((activity) => (
+                              <li key={activity} className="flex items-start gap-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
+                                <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
+                                {activity}
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                </article>
+                </motion.article>
               )
             })}
           </div>

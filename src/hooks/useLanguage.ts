@@ -7,7 +7,7 @@ const STORAGE_KEY = 'portfolio-language'
 export function useLanguage() {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
-    return saved === 'pt' ? 'pt' : 'en'
+    return saved === 'en' ? 'en' : 'pt'
   })
 
   useEffect(() => {
