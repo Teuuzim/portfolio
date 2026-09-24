@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations, type ProjectItem } from '../data/translations'
 import { Icon } from './Icon'
@@ -47,14 +47,25 @@ function ProjectLinks({ project, labels }: { project: ProjectItem; labels: Proje
   )
 }
 
-function ProjectDetails({ project, labels }: { project: ProjectItem; labels: ProjectLabels }) {
+function ProjectDetails({ project, labels, compact = false }: {
+  project: ProjectItem
+  labels: ProjectLabels
+  /** Clamp the copy so the sticky panel keeps one height across projects. */
+  compact?: boolean
+}) {
   return (
     <>
-      <div className="space-y-3 text-sm leading-7 text-gray-600 dark:text-slate-300">
-        {project.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-      </div>
+      {compact ? (
+        <p className="line-clamp-4 text-sm leading-7 text-gray-600 dark:text-slate-300">
+          {project.description.join(' ')}
+        </p>
+      ) : (
+        <div className="space-y-3 text-sm leading-7 text-gray-600 dark:text-slate-300">
+          {project.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </div>
+      )}
       <div className="mt-6 flex flex-wrap gap-2">
-        {project.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
+        {(compact ? project.tags.slice(0, 3) : project.tags).map((tag) => <span key={tag} className="tag">{tag}</span>)}
       </div>
       {(project.demo || project.github) && (
         <div className="mt-7 border-t border-brand-700/10 pt-5 dark:border-emerald-300/10">
@@ -123,7 +134,7 @@ function ProjectRow({ project, index, active, onActivate, onPreview, controls }:
         transition={{ duration: 0.45, ease: EASE }}
         aria-hidden="true"
       >
-        <Icon name="external" className="h-3.5 w-3.5" />
+        <Icon name="arrow" className="h-3.5 w-3.5" />
       </motion.span>
     </button>
   )
@@ -142,8 +153,7 @@ function PreviewPanel({ project, index, total, labels, language }: {
   return (
     <div
       id="project-preview"
-      aria-live="polite"
-      className="card relative overflow-hidden p-6 hover:translate-y-0 xl:p-7"
+      className="card relative flex h-[47rem] flex-col overflow-hidden p-6 hover:translate-y-0 xl:p-7"
     >
       {/* The preview wipes in top-down while the outgoing one lifts away,
           so switching projects reads like flipping between browser tabs. */}
@@ -190,11 +200,11 @@ function PreviewPanel({ project, index, total, labels, language }: {
           <h3 className="mb-4 font-display text-2xl font-bold leading-snug tracking-[-0.03em] text-ink">
             {project.title}
           </h3>
-          <ProjectDetails project={project} labels={labels} />
+          <ProjectDetails project={project} labels={labels} compact />
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative mt-8 flex gap-1.5" aria-hidden="true">
+      <div className="relative mt-auto flex gap-1.5 pt-6" aria-hidden="true">
         {Array.from({ length: total }, (_, i) => (
           <span key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-brand-700/10 dark:bg-emerald-300/10">
             <motion.span
@@ -219,6 +229,17 @@ interface ListProps {
 function ProjectsEditorial({ items, labels, language }: ListProps) {
   const [active, setActive] = useState(0)
   const rowRefs = useRef<(HTMLLIElement | null)[]>([])
+  const gridRef = useRef<HTMLDivElement>(null)
+  const nearView = useInView(gridRef, { once: true, margin: '600px 0px' })
+
+  // Warm the screenshot cache before the section arrives, so the first switch
+  // to each project reveals a loaded image instead of an empty frame.
+  useEffect(() => {
+    if (!nearView) return
+    for (const { preview } of items) {
+      if (preview?.kind === 'image') new Image().src = preview.src
+    }
+  }, [nearView, items])
 
   // A thin band across the middle of the viewport: whichever row crosses it
   // becomes the active one, so the preview follows the reader while scrolling.
@@ -238,7 +259,7 @@ function ProjectsEditorial({ items, labels, language }: ListProps) {
   }, [items.length])
 
   return (
-    <div className="mt-14 grid gap-12 lg:grid-cols-12 xl:gap-16">
+    <div ref={gridRef} className="mt-14 grid gap-12 lg:grid-cols-12 xl:gap-16">
       <div className="lg:col-span-7">
         <ol className="border-b border-brand-700/10 dark:border-emerald-300/10">
           {items.map((project, index) => (
@@ -267,10 +288,10 @@ function ProjectsEditorial({ items, labels, language }: ListProps) {
         </p>
       </div>
 
+      {/* Fixed height (clamped copy, capped tags) so switching projects never
+          shifts the content below the section. */}
       <div className="lg:col-span-5">
-        <div className="sticky top-28">
-          <PreviewPanel project={items[active]} index={active} total={items.length} labels={labels} language={language} />
-        </div>
+        <PreviewPanel project={items[active]} index={active} total={items.length} labels={labels} language={language} />
       </div>
     </div>
   )
