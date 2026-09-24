@@ -94,7 +94,10 @@ function ProjectRow({ project, index, active, onActivate, onPreview, controls }:
       onClick={onActivate}
       onMouseEnter={onPreview}
       onFocus={onPreview}
-      aria-expanded={active}
+      // With a side panel the row selects what it shows; in the accordion it
+      // expands its own details.
+      aria-pressed={onPreview ? active : undefined}
+      aria-expanded={onPreview ? undefined : active}
       aria-controls={controls}
       className="group relative isolate flex w-full items-center gap-5 py-6 text-left sm:gap-8 lg:py-7"
     >
@@ -256,7 +259,9 @@ function ProjectsEditorial({ items, labels, language }: ListProps) {
     )
     rowRefs.current.forEach((row) => row && observer.observe(row))
     return () => observer.disconnect()
-  }, [items.length])
+    // Keyed by `items`, not its length: rows are keyed by title, which differs
+    // between languages, so a language switch remounts them with new nodes.
+  }, [items])
 
   return (
     <div ref={gridRef} className="mt-14 grid gap-12 lg:grid-cols-12 xl:gap-16">
