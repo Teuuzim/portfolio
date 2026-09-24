@@ -32,9 +32,15 @@ export interface ExperienceItem {
   activities: string[]
 }
 
+export type ProjectPreview =
+  | { kind: 'image'; src: string }
+  | { kind: 'chat' }
+  | { kind: 'sheet' }
+
 export interface ProjectItem {
   title: string
   icon: IconName
+  preview?: ProjectPreview
   description: string[]
   tags: string[]
   demo?: string
@@ -118,7 +124,7 @@ export const translations: Record<Language, PortfolioContent> = {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       scrollHint: 'Scroll',
-      galleryHint: 'Keep scrolling to browse',
+      galleryHint: 'Hover or scroll to preview each project',
     },
     hero: {
       eyebrow: 'Open to opportunities',
@@ -282,6 +288,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
           tags: ['Landing Page', 'Corporate Website'],
           demo: 'https://www.ecogoldoficial.com.br',
+          preview: { kind: 'image', src: '/projects/eco-gold.webp' },
         },
         {
           title: 'In and Out Beauty',
@@ -291,6 +298,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
           tags: ['Personal Brand', 'Visual Identity'],
           demo: 'https://anaclarafilgueiras.com.br',
+          preview: { kind: 'image', src: '/projects/in-and-out-beauty.webp' },
         },
         {
           title: 'Fruit Shop E-commerce',
@@ -298,6 +306,7 @@ export const translations: Record<Language, PortfolioContent> = {
           description: ['A fresh fruit e-commerce interface built with Next.js, focused on a simple, clean and responsive shopping experience. The project includes a product catalog, bilingual interface and shopping cart interaction, presenting a modern front-end structure for an online store.'],
           tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'E-commerce UI'],
           demo: 'https://fruit-shop-next-js-main.vercel.app',
+          preview: { kind: 'image', src: '/projects/fruit-shop.webp' },
           github: 'https://github.com/Teuuzim/FruitShop-NextJs-main',
         },
         {
@@ -306,11 +315,13 @@ export const translations: Record<Language, PortfolioContent> = {
           description: ['A Notion-inspired productivity interface built with React, TypeScript and Vite. The project focuses on creating a modern, responsive and clean user experience, reproducing core visual concepts of a workspace/document management platform.'],
           tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
           demo: 'https://notion-react.vercel.app',
+          preview: { kind: 'image', src: '/projects/notion-react.webp' },
           github: 'https://github.com/Teuuzim/notion-react',
         },
         {
           title: 'Business Rule Chatbot Flows',
           icon: 'message',
+          preview: { kind: 'chat' },
           description: [
             'Custom chatbot flows developed around specific company rules, service processes and customer journeys.',
             'These flows are designed to understand user intent, collect the right information, apply decision logic and direct the conversation to the correct next step.',
@@ -320,6 +331,7 @@ export const translations: Record<Language, PortfolioContent> = {
         {
           title: 'Data Registration Automation',
           icon: 'sheet',
+          preview: { kind: 'sheet' },
           description: [
             'Automation processes focused on collecting, organizing and registering data in spreadsheets, CRMs and external platforms.',
             'These workflows help reduce manual work, improve data consistency and support better follow-up by internal teams.',
@@ -379,7 +391,7 @@ export const translations: Record<Language, PortfolioContent> = {
       github: 'GitHub',
       linkedin: 'LinkedIn',
       scrollHint: 'Role',
-      galleryHint: 'Continue rolando para navegar',
+      galleryHint: 'Passe o mouse ou role para ver cada projeto',
     },
     hero: {
       eyebrow: 'Aberto a oportunidades',
@@ -543,6 +555,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
           tags: ['Landing Page', 'Site Institucional'],
           demo: 'https://www.ecogoldoficial.com.br',
+          preview: { kind: 'image', src: '/projects/eco-gold.webp' },
         },
         {
           title: 'In and Out Beauty',
@@ -552,6 +565,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
           tags: ['Marca Pessoal', 'Identidade Visual'],
           demo: 'https://anaclarafilgueiras.com.br',
+          preview: { kind: 'image', src: '/projects/in-and-out-beauty.webp' },
         },
         {
           title: 'E-commerce Fruit Shop',
@@ -559,6 +573,7 @@ export const translations: Record<Language, PortfolioContent> = {
           description: ['Uma interface de e-commerce de frutas desenvolvida com Next.js, focada em uma experiência de compra simples, limpa e responsiva. O projeto inclui catálogo de produtos, interface bilíngue e interação com carrinho, apresentando uma estrutura moderna de front-end para uma loja online.'],
           tags: ['Next.js', 'React', 'JavaScript', 'CSS', 'E-commerce UI'],
           demo: 'https://fruit-shop-next-js-main.vercel.app',
+          preview: { kind: 'image', src: '/projects/fruit-shop.webp' },
           github: 'https://github.com/Teuuzim/FruitShop-NextJs-main',
         },
         {
@@ -567,11 +582,13 @@ export const translations: Record<Language, PortfolioContent> = {
           description: ['Uma interface de produtividade inspirada no Notion, desenvolvida com React, TypeScript e Vite. O projeto tem foco em criar uma experiência moderna, responsiva e limpa, reproduzindo conceitos visuais de uma plataforma de organização de documentos e áreas de trabalho.'],
           tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
           demo: 'https://notion-react.vercel.app',
+          preview: { kind: 'image', src: '/projects/notion-react.webp' },
           github: 'https://github.com/Teuuzim/notion-react',
         },
         {
           title: 'Fluxos de Chatbot com Regras de Negócio',
           icon: 'message',
+          preview: { kind: 'chat' },
           description: [
             'Fluxos personalizados de chatbot desenvolvidos com base nas regras, processos e jornadas de atendimento específicas de cada empresa.',
             'Esses fluxos são projetados para entender a intenção do usuário, coletar as informações corretas, aplicar lógica de decisão e direcionar a conversa para a próxima etapa adequada.',
@@ -581,6 +598,7 @@ export const translations: Record<Language, PortfolioContent> = {
         {
           title: 'Automação de Registro de Dados',
           icon: 'sheet',
+          preview: { kind: 'sheet' },
           description: [
             'Processos de automação focados em coletar, organizar e registrar dados em planilhas, CRMs e plataformas externas.',
             'Esses fluxos ajudam a reduzir o trabalho manual, melhorar a consistência dos dados e apoiar um acompanhamento melhor pelas equipes internas.',

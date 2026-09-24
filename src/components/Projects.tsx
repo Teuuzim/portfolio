@@ -1,205 +1,344 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useSpring, useTransform } from 'motion/react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations, type ProjectItem } from '../data/translations'
-import { usePointerCapability } from '../hooks/usePointerCapability'
 import { Icon } from './Icon'
 import { SectionHeading } from './SectionHeading'
-import { TiltCard } from './interactive/TiltCard'
+import { ProjectPreview } from './ProjectPreview'
 
 type ProjectLabels = { liveDemo: string; repository: string; galleryHint: string }
 
-interface ProjectCardProps {
-  project: ProjectItem
-  index: number
-  labels: ProjectLabels
-  className?: string
-  titleClassName?: string
+const EASE = [0.22, 1, 0.36, 1] as const
+const DESKTOP_QUERY = '(min-width: 1024px)'
+
+function subscribeDesktop(callback: () => void) {
+  const list = window.matchMedia(DESKTOP_QUERY)
+  list.addEventListener('change', callback)
+  return () => list.removeEventListener('change', callback)
 }
 
-function ProjectCard({ project, index, labels, className, titleClassName = 'text-xl' }: ProjectCardProps) {
+function useIsDesktop() {
+  return useSyncExternalStore(
+    subscribeDesktop,
+    () => window.matchMedia(DESKTOP_QUERY).matches,
+    () => false,
+  )
+}
+
+const pad = (value: number) => String(value).padStart(2, '0')
+
+function ProjectLinks({ project, labels }: { project: ProjectItem; labels: ProjectLabels }) {
+  if (!project.demo && !project.github) return null
   return (
-    <TiltCard className={`card group flex h-full flex-col p-7 ${className ?? ''}`}>
-      <div className="flex items-center justify-between gap-4">
-        <span className="icon-box transition-transform duration-300 group-hover:-translate-y-1">
-          <Icon name={project.icon} />
-        </span>
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-          case / {String(index + 1).padStart(2, '0')}
-        </span>
-      </div>
-      <h3 className={`${titleClassName} mt-5 font-display font-bold leading-snug tracking-[-0.03em] text-ink`}>
-        {project.title}
-      </h3>
-      <div className="mt-4 space-y-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
+    <div className="flex flex-wrap gap-5">
+      {project.demo && (
+        <a href={project.demo} target="_blank" rel="noreferrer" className="project-link">
+          {labels.liveDemo}
+          <Icon name="external" className="h-4 w-4" />
+        </a>
+      )}
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
+          <Icon name="github" className="h-4 w-4" />
+          {labels.repository}
+        </a>
+      )}
+    </div>
+  )
+}
+
+function ProjectDetails({ project, labels }: { project: ProjectItem; labels: ProjectLabels }) {
+  return (
+    <>
+      <div className="space-y-3 text-sm leading-7 text-gray-600 dark:text-slate-300">
         {project.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
       <div className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
       </div>
       {(project.demo || project.github) && (
-        <div className="mt-auto flex flex-wrap gap-4 border-t border-brand-700/10 pt-5 dark:border-emerald-300/10">
-          {project.demo && (
-            <a href={project.demo} target="_blank" rel="noreferrer" className="project-link">
-              {labels.liveDemo}
-              <Icon name="external" className="h-4 w-4" />
-            </a>
-          )}
-          {project.github && (
-            <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
-              <Icon name="github" className="h-4 w-4" />
-              {labels.repository}
-            </a>
-          )}
+        <div className="mt-7 border-t border-brand-700/10 pt-5 dark:border-emerald-300/10">
+          <ProjectLinks project={project} labels={labels} />
         </div>
       )}
-    </TiltCard>
+    </>
   )
 }
 
-function useHorizontalScroll(
-  cardsRef: React.RefObject<HTMLElement>,
-  viewportRef: React.RefObject<HTMLElement>,
-  gutterRef: React.RefObject<HTMLElement>,
-) {
-  const [{ distance, viewportHeight, gutter }, setDimensions] = useState({
-    distance: 0,
-    viewportHeight: 0,
-    gutter: 0,
-  })
-
-  useEffect(() => {
-    const cards = cardsRef.current
-    const viewport = viewportRef.current
-    if (!cards || !viewport) return
-
-    // Measuring the cards row (which the gutter never touches) instead of the
-    // outer track keeps this a single pass: if distance depended on the applied
-    // gutter, the first measurement would always read zero and need a second
-    // one, which browsers skip entirely while a tab is hidden.
-    const measure = () => {
-      const anchor = gutterRef.current
-      const offset = anchor
-        ? anchor.getBoundingClientRect().left -
-          viewport.getBoundingClientRect().left +
-          parseFloat(getComputedStyle(anchor).paddingLeft || '0')
-        : 0
-      const gutterWidth = Math.max(0, offset)
-      setDimensions({
-        distance: Math.max(0, gutterWidth + cards.scrollWidth - viewport.clientWidth),
-        viewportHeight: viewport.clientHeight,
-        gutter: gutterWidth,
-      })
-    }
-    measure()
-
-    const observer = new ResizeObserver(measure)
-    observer.observe(cards)
-    observer.observe(viewport)
-    return () => observer.disconnect()
-  }, [cardsRef, viewportRef, gutterRef])
-
-  return { distance, viewportHeight, gutter }
+interface RowProps {
+  project: ProjectItem
+  index: number
+  active: boolean
+  onActivate: () => void
+  /** Hover/focus preview — only where a side panel exists to show it. */
+  onPreview?: () => void
+  controls: string
 }
 
-interface GalleryProps {
-  items: ProjectItem[]
+function ProjectRow({ project, index, active, onActivate, onPreview, controls }: RowProps) {
+  const reduceMotion = useReducedMotion()
+  return (
+    <button
+      type="button"
+      onClick={onActivate}
+      onMouseEnter={onPreview}
+      onFocus={onPreview}
+      aria-expanded={active}
+      aria-controls={controls}
+      className="group relative isolate flex w-full items-center gap-5 py-6 text-left sm:gap-8 lg:py-7"
+    >
+      {active && (
+        <motion.span
+          layoutId="project-row-highlight"
+          className="absolute inset-y-1 -left-4 -right-4 -z-10 rounded-2xl bg-brand-500/[0.07] dark:bg-emerald-300/[0.06]"
+          transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+        />
+      )}
+      <span
+        className={`w-8 shrink-0 font-mono text-xs font-semibold tracking-[0.14em] transition-colors duration-300 ${
+          active ? 'text-brand-700 dark:text-emerald-300' : 'text-slate-400'
+        }`}
+      >
+        {pad(index + 1)}
+      </span>
+      <motion.span
+        className={`min-w-0 flex-1 font-display text-2xl font-bold leading-tight tracking-[-0.035em] transition-colors duration-300 sm:text-3xl lg:text-[2.35rem] ${
+          active ? 'text-brand-700 dark:text-emerald-300' : 'text-ink/45 group-hover:text-ink/80'
+        }`}
+        animate={{ x: active && !reduceMotion ? 12 : 0 }}
+        transition={{ duration: 0.45, ease: EASE }}
+      >
+        {project.title}
+      </motion.span>
+      <span className="hidden shrink-0 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400 sm:block">
+        {project.tags[0]}
+      </span>
+      <motion.span
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-colors duration-300 ${
+          active
+            ? 'border-brand-700 bg-brand-700 text-white dark:border-emerald-300 dark:bg-emerald-300 dark:text-[#071510]'
+            : 'border-brand-700/15 text-brand-700 dark:border-emerald-300/15 dark:text-emerald-300'
+        }`}
+        animate={{ rotate: active ? 0 : -45 }}
+        transition={{ duration: 0.45, ease: EASE }}
+        aria-hidden="true"
+      >
+        <Icon name="external" className="h-3.5 w-3.5" />
+      </motion.span>
+    </button>
+  )
+}
+
+function PreviewPanel({ project, index, total, labels, language }: {
+  project: ProjectItem
+  index: number
+  total: number
   labels: ProjectLabels
-  heading: { kicker: string; title: string; subtitle: string }
-}
-
-function ProjectsHorizontal({ items, labels, heading }: GalleryProps) {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const viewportRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
-  const headingRef = useRef<HTMLDivElement>(null)
-  const { distance, viewportHeight, gutter } = useHorizontalScroll(cardsRef, viewportRef, headingRef)
-
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] })
-  const x = useTransform(scrollYProgress, [0, 1], [0, -distance])
-  const progress = useSpring(scrollYProgress, { stiffness: 180, damping: 30, mass: 0.3 })
-
-  // Scroll room equals viewport height plus exactly the horizontal distance the
-  // track needs to travel — so wide viewports where every card already fits
-  // (distance = 0) don't reserve a dead scroll zone with nothing to animate.
-  const sectionHeight = viewportHeight > 0 ? `${viewportHeight + distance}px` : '100vh'
-  const pinned = distance > 0
+  language: Language
+}) {
+  const reduceMotion = useReducedMotion()
+  const offset = reduceMotion ? 0 : 1
 
   return (
-    <div ref={sectionRef} className="relative" style={{ height: sectionHeight }}>
-      <div ref={viewportRef} className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden py-24">
-        <div ref={headingRef} className="container-shell shrink-0">
-          <SectionHeading kicker={heading.kicker} title={heading.title} subtitle={heading.subtitle} />
-        </div>
-
-        <motion.div className="mt-12 flex w-max" style={{ x }}>
-          {/* A real flex child rather than padding: padding grows only the
-              border-box, which a content-box ResizeObserver never reports. */}
-          <div className="shrink-0" style={{ width: gutter }} aria-hidden="true" />
-          <div ref={cardsRef} className="flex w-max gap-6">
-            {items.map((project, index) => (
-              <div key={project.title} className="w-[20rem] shrink-0 sm:w-[23rem]">
-                <ProjectCard project={project} index={index} labels={labels} />
-              </div>
-            ))}
-            <div className="w-2 shrink-0 sm:w-4 lg:w-6" aria-hidden="true" />
-          </div>
+    <div
+      id="project-preview"
+      aria-live="polite"
+      className="card relative overflow-hidden p-6 hover:translate-y-0 xl:p-7"
+    >
+      {/* The preview wipes in top-down while the outgoing one lifts away,
+          so switching projects reads like flipping between browser tabs. */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`preview-${index}`}
+          className="mb-6"
+          initial={{ opacity: 0, clipPath: reduceMotion ? 'inset(0% 0 0% 0)' : 'inset(0% 0 100% 0)', y: 16 * offset }}
+          animate={{ opacity: 1, clipPath: 'inset(0% 0 0% 0)', y: 0 }}
+          exit={{ opacity: 0, y: -12 * offset, scale: reduceMotion ? 1 : 0.97 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          <ProjectPreview project={project} language={language} />
         </motion.div>
+      </AnimatePresence>
 
-        {pinned && (
-          <div className="container-shell mt-12 flex shrink-0 items-center gap-5">
-            <span className="h-px flex-1 overflow-hidden bg-brand-700/15 dark:bg-emerald-300/15">
-              <motion.span
-                className="block h-full origin-left bg-brand-700 dark:bg-emerald-300"
-                style={{ scaleX: progress }}
-              />
-            </span>
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-700/60 dark:text-emerald-300/50">
-              {labels.galleryHint}
-            </span>
-          </div>
-        )}
+      <div className="relative flex items-center justify-between gap-4">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={`icon-${index}`}
+            className="icon-box"
+            initial={{ opacity: 0, scale: 0.6, rotate: -20 * offset }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.6 }}
+            transition={{ duration: 0.35, ease: EASE }}
+          >
+            <Icon name={project.icon} />
+          </motion.span>
+        </AnimatePresence>
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+          case {pad(index + 1)} / {pad(total)}
+        </span>
       </div>
-    </div>
-  )
-}
 
-function ProjectsGrid({ items, labels, heading }: GalleryProps) {
-  return (
-    <div className="section-space container-shell">
-      <SectionHeading kicker={heading.kicker} title={heading.title} subtitle={heading.subtitle} />
-      <div className="mt-12 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-12">
-        {items.map((project, index) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={index}
-            labels={labels}
-            className={index < 2 ? 'lg:col-span-6' : 'lg:col-span-4'}
-            titleClassName={index < 2 ? 'text-2xl lg:text-3xl' : 'text-xl'}
-          />
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={project.title}
+          className="relative mt-5"
+          initial={{ opacity: 0, y: 24 * offset, filter: `blur(${8 * offset}px)` }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -16 * offset, filter: `blur(${6 * offset}px)` }}
+          transition={{ duration: 0.4, ease: EASE }}
+        >
+          <h3 className="mb-4 font-display text-2xl font-bold leading-snug tracking-[-0.03em] text-ink">
+            {project.title}
+          </h3>
+          <ProjectDetails project={project} labels={labels} />
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="relative mt-8 flex gap-1.5" aria-hidden="true">
+        {Array.from({ length: total }, (_, i) => (
+          <span key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-brand-700/10 dark:bg-emerald-300/10">
+            <motion.span
+              className="block h-full origin-left bg-brand-700 dark:bg-emerald-300"
+              initial={false}
+              animate={{ scaleX: i <= index ? 1 : 0 }}
+              transition={{ duration: 0.4, ease: EASE }}
+            />
+          </span>
         ))}
       </div>
     </div>
   )
 }
 
+interface ListProps {
+  items: ProjectItem[]
+  labels: ProjectLabels
+  language: Language
+}
+
+function ProjectsEditorial({ items, labels, language }: ListProps) {
+  const [active, setActive] = useState(0)
+  const rowRefs = useRef<(HTMLLIElement | null)[]>([])
+
+  // A thin band across the middle of the viewport: whichever row crosses it
+  // becomes the active one, so the preview follows the reader while scrolling.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const index = rowRefs.current.indexOf(entry.target as HTMLLIElement)
+          if (index >= 0) setActive(index)
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+    rowRefs.current.forEach((row) => row && observer.observe(row))
+    return () => observer.disconnect()
+  }, [items.length])
+
+  return (
+    <div className="mt-14 grid gap-12 lg:grid-cols-12 xl:gap-16">
+      <div className="lg:col-span-7">
+        <ol className="border-b border-brand-700/10 dark:border-emerald-300/10">
+          {items.map((project, index) => (
+            <motion.li
+              key={project.title}
+              ref={(node) => { rowRefs.current[index] = node }}
+              className="relative border-t border-brand-700/10 dark:border-emerald-300/10"
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.6, delay: (index % 4) * 0.06, ease: EASE }}
+            >
+              <ProjectRow
+                project={project}
+                index={index}
+                active={index === active}
+                onActivate={() => setActive(index)}
+                onPreview={() => setActive(index)}
+                controls="project-preview"
+              />
+            </motion.li>
+          ))}
+        </ol>
+        <p className="mt-6 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-700/60 dark:text-emerald-300/50">
+          {labels.galleryHint}
+        </p>
+      </div>
+
+      <div className="lg:col-span-5">
+        <div className="sticky top-28">
+          <PreviewPanel project={items[active]} index={active} total={items.length} labels={labels} language={language} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProjectsAccordion({ items, labels, language }: ListProps) {
+  const [open, setOpen] = useState<number | null>(0)
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <ol className="mt-12 border-b border-brand-700/10 dark:border-emerald-300/10">
+      {items.map((project, index) => {
+        const isOpen = open === index
+        const panelId = `project-panel-${index}`
+        return (
+          <li key={project.title} className="border-t border-brand-700/10 dark:border-emerald-300/10">
+            <ProjectRow
+              project={project}
+              index={index}
+              active={isOpen}
+              onActivate={() => setOpen(isOpen ? null : index)}
+              controls={panelId}
+            />
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  id={panelId}
+                  className="overflow-hidden"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.4, ease: EASE }}
+                >
+                  <div className="pb-8 pl-[3.25rem] sm:pl-16">
+                    {project.preview && (
+                      <div className="mb-6">
+                        <ProjectPreview project={project} language={language} />
+                      </div>
+                    )}
+                    <ProjectDetails project={project} labels={labels} />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
 export function Projects({ language }: { language: Language }) {
   const { projects, labels } = translations[language]
-  const { isTouch, prefersReducedMotion } = usePointerCapability()
-  const useHorizontal = !isTouch && !prefersReducedMotion
+  const isDesktop = useIsDesktop()
 
-  const heading = { kicker: projects.kicker, title: projects.title, subtitle: projects.subtitle }
   const projectLabels: ProjectLabels = {
     liveDemo: labels.liveDemo,
     repository: labels.repository,
     galleryHint: labels.galleryHint,
   }
-  const Gallery = useHorizontal ? ProjectsHorizontal : ProjectsGrid
+  const List = isDesktop ? ProjectsEditorial : ProjectsAccordion
 
   return (
     <section id="projects" className="scroll-mt-20 bg-panel">
-      <Gallery items={projects.items} labels={projectLabels} heading={heading} />
+      <div className="section-space container-shell">
+        <SectionHeading kicker={projects.kicker} title={projects.title} subtitle={projects.subtitle} />
+        <List items={projects.items} labels={projectLabels} language={language} />
+      </div>
     </section>
   )
 }
