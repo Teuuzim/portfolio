@@ -35,10 +35,10 @@ function App() {
       />
       <main id="main-content">
         <Hero language={language} />
+        <Reveal><Projects language={language} /></Reveal>
         <Reveal><About language={language} /></Reveal>
         <Reveal><Skills language={language} /></Reveal>
         <Reveal><Experience language={language} /></Reveal>
-        <Reveal><Projects language={language} /></Reveal>
         <Reveal><Education language={language} /></Reveal>
         <Reveal><Contact language={language} /></Reveal>
       </main>

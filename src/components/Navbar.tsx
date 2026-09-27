@@ -12,7 +12,7 @@ interface NavbarProps {
   onThemeToggle: () => void
 }
 
-const SECTION_IDS = ['about', 'skills', 'experience', 'projects', 'education', 'contact']
+const SECTION_IDS = ['projects', 'about', 'skills', 'experience', 'education', 'contact']
 
 export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: NavbarProps) {
   const [open, setOpen] = useState(false)
@@ -20,10 +20,10 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
   const [activeId, setActiveId] = useState('')
   const t = translations[language]
   const links = [
+    ['projects', t.nav.projects],
     ['about', t.nav.about],
     ['skills', t.nav.skills],
     ['experience', t.nav.experience],
-    ['projects', t.nav.projects],
     ['education', t.nav.education],
     ['contact', t.nav.contact],
   ]
