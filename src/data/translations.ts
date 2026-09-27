@@ -275,8 +275,8 @@ export const translations: Record<Language, PortfolioContent> = {
       ],
     },
     projects: {
-      kicker: 'Selected projects',
-      title: 'Products, systems and automation case studies',
+      kicker: 'Portfolio',
+      title: 'Featured projects',
       subtitle:
         'A mix of public applications and professional workflow solutions built around practical needs.',
       items: [
@@ -544,8 +544,8 @@ export const translations: Record<Language, PortfolioContent> = {
       ],
     },
     projects: {
-      kicker: 'Projetos selecionados',
-      title: 'Produtos, sistemas e estudos de caso em automação',
+      kicker: 'Portfólio',
+      title: 'Projetos em destaque',
       subtitle:
         'Aplicações públicas e soluções profissionais de fluxo construídas para necessidades práticas.',
       items: [
