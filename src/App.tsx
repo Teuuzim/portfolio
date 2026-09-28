@@ -5,7 +5,6 @@ import { Education } from './components/Education'
 import { Experience } from './components/Experience'
 import { Footer } from './components/Footer'
 import { Hero } from './components/Hero'
-import { CustomCursor } from './components/interactive/CustomCursor'
 import { Navbar } from './components/Navbar'
 import { Projects } from './components/Projects'
 import { Reveal } from './components/Reveal'
@@ -25,7 +24,6 @@ function App() {
       <a href="#main-content" className="skip-link">
         {language === 'en' ? 'Skip to main content' : 'Ir para o conteúdo principal'}
       </a>
-      <CustomCursor />
       <ScrollProgress />
       <Navbar
         language={language}
