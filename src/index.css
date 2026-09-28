@@ -46,12 +46,6 @@
   :focus-visible {
     @apply outline-none ring-2 ring-emerald-600 ring-offset-2 ring-offset-canvas dark:ring-emerald-300;
   }
-
-  body.has-custom-cursor,
-  body.has-custom-cursor a,
-  body.has-custom-cursor button {
-    cursor: none;
-  }
 }
 
 @layer components {
