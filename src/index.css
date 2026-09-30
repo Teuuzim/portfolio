@@ -130,50 +130,7 @@
     linear-gradient(rgba(22, 132, 91, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(22, 132, 91, 0.06) 1px, transparent 1px);
   background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
-  animation: grid-drift 24s linear infinite;
-}
-
-@keyframes grid-drift {
-  to {
-    background-position: 72px 72px;
-  }
-}
-
-.identity-orbit::before,
-.identity-orbit::after {
-  content: '';
-  position: absolute;
-  inset: 12%;
-  border-radius: 9999px;
-  border: 1px dashed rgba(22, 132, 91, 0.18);
-  pointer-events: none;
-}
-
-.identity-orbit::after {
-  inset: 3%;
-  border-style: solid;
-  border-color: rgba(22, 132, 91, 0.08);
-}
-
-.orbit-copy {
-  animation: orbit-spin 24s linear infinite;
-  transform-origin: center;
-}
-
-.identity-orbit img {
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), filter 600ms ease;
-}
-
-.identity-orbit:hover img {
-  transform: scale(1.045);
-  filter: saturate(1.08);
-}
-
-@keyframes orbit-spin {
-  to {
-    transform: rotate(360deg);
-  }
+  mask-image: linear-gradient(to bottom, black 10%, transparent 75%);
 }
 
 .marquee-track {

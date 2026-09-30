@@ -12,7 +12,8 @@ interface NavbarProps {
   onThemeToggle: () => void
 }
 
-const SECTION_IDS = ['projects', 'about', 'skills', 'experience', 'education', 'contact']
+// The hero doubles as the "About" section, so its link targets #top.
+const SECTION_IDS = ['top', 'projects', 'skills', 'experience', 'education', 'contact']
 
 export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: NavbarProps) {
   const [open, setOpen] = useState(false)
@@ -20,8 +21,8 @@ export function Navbar({ language, theme, onLanguageToggle, onThemeToggle }: Nav
   const [activeId, setActiveId] = useState('')
   const t = translations[language]
   const links = [
+    ['top', t.nav.about],
     ['projects', t.nav.projects],
-    ['about', t.nav.about],
     ['skills', t.nav.skills],
     ['experience', t.nav.experience],
     ['education', t.nav.education],

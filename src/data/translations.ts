@@ -69,21 +69,16 @@ interface PortfolioContent {
     email: string
     github: string
     linkedin: string
-    scrollHint: string
     galleryHint: string
   }
   hero: {
-    eyebrow: string
-    title: string
-    description: string
-    secondary: string
+    greeting: string
+    role: string
+    bio: string
+    status: string
     projectsButton: string
     resumeButton: string
-    available: string
-    orbit: string
   }
-  about: { kicker: string; title: string; paragraphs: string[] }
-  focus: { kicker: string; title: string; paragraphs: string[]; pillars: { value: string; label: string }[] }
   skills: { kicker: string; title: string; subtitle: string; groups: SkillGroup[] }
   experience: { kicker: string; title: string; subtitle: string; items: ExperienceItem[] }
   projects: { kicker: string; title: string; subtitle: string; items: ProjectItem[] }
@@ -123,44 +118,15 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
-      scrollHint: 'Scroll',
       galleryHint: 'Hover or scroll to preview each project',
     },
     hero: {
-      eyebrow: 'Open to opportunities',
-      title: 'Full-Stack Developer & AI Automation Specialist',
-      description:
-        'I create web systems, CRM integrations and AI-powered workflows that help businesses automate operations, qualify leads and improve customer interactions.',
-      secondary:
-        'I combine software development, automation strategy and business process understanding to build practical solutions that connect people, systems and data.',
+      greeting: 'Hi, I’m',
+      role: 'Full-Stack Developer & AI Automation Specialist.',
+      bio: 'Computer Science graduate from FUMEC University. I build web systems, integrate CRMs and design AI workflows that automate customer service and lead qualification, turning business rules into clear, scalable processes.',
+      status: 'Open to opportunities',
       projectsButton: 'View projects',
-      resumeButton: 'Download resume',
-      available: 'Software Development · Automation',
-      orbit: 'Full-Stack Development · AI Automation · CRM Integrations ·',
-    },
-    about: {
-      kicker: 'About me',
-      title: 'Development experience with a business-first perspective',
-      paragraphs: [
-        'I am Matheus Henrique Vaz Marques, a Full-Stack Developer and AI Automation Specialist.',
-        'I hold a Bachelor’s degree in Computer Science from FUMEC University and have professional experience in web development, internal systems, automation workflows and AI-powered lead qualification.',
-        'My background includes working with ReactJS, Node.js, PHP, JavaScript, MySQL and modern web development tools. I started my professional journey as a Web Development Intern, progressed to Junior Web Developer, and now work with automation initiatives focused on smart funnels, CRM integrations and business workflows.',
-        'Today, my main focus is building solutions that help companies automate repetitive tasks, organize lead information, connect CRMs, improve customer service processes and support better decision-making through technology.',
-      ],
-    },
-    focus: {
-      kicker: 'Professional focus',
-      title: 'Technology that solves real business problems',
-      paragraphs: [
-        'My work is centered on creating technology that solves real business problems.',
-        'I develop and maintain web systems, structure automation flows, integrate CRMs, register data in external platforms, and design chatbot logic that guides users toward scheduling, qualification or human support when needed.',
-        'I enjoy working at the intersection of software development, automation and customer experience, transforming complex business rules into clear, functional and scalable digital workflows.',
-      ],
-      pillars: [
-        { value: 'Web', label: 'Systems & interfaces' },
-        { value: 'CRM', label: 'Data & integrations' },
-        { value: 'AI', label: 'Smart workflows' },
-      ],
+      resumeButton: 'Resume',
     },
     skills: {
       kicker: 'Technical skills',
@@ -392,44 +358,15 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
-      scrollHint: 'Role',
       galleryHint: 'Passe o mouse ou role para ver cada projeto',
     },
     hero: {
-      eyebrow: 'Aberto a oportunidades',
-      title: 'Desenvolvedor Full-Stack & Especialista em Automação com IA',
-      description:
-        'Crio sistemas web, integrações com CRMs e fluxos com inteligência artificial que ajudam empresas a automatizar operações, qualificar leads e melhorar o atendimento ao cliente.',
-      secondary:
-        'Combino desenvolvimento de software, estratégia de automação e entendimento de processos de negócio para criar soluções práticas que conectam pessoas, sistemas e dados.',
+      greeting: 'Olá, eu sou',
+      role: 'Desenvolvedor Full-Stack e Especialista em Automação com IA.',
+      bio: 'Formado em Ciência da Computação pela FUMEC. Desenvolvo sistemas web, integro CRMs e crio fluxos com IA que automatizam o atendimento e a qualificação de leads, transformando regras de negócio em processos claros e escaláveis.',
+      status: 'Aberto a oportunidades',
       projectsButton: 'Ver projetos',
-      resumeButton: 'Baixar currículo',
-      available: 'Desenvolvimento de Software · Automações ',
-      orbit: 'Desenvolvimento Full-Stack · Automação com IA · Integrações com CRM ·',
-    },
-    about: {
-      kicker: 'Sobre mim',
-      title: 'Experiência em desenvolvimento com visão de negócio',
-      paragraphs: [
-        'Sou Matheus Henrique Vaz Marques, Desenvolvedor Full-Stack e Especialista em Automação com IA.',
-        'Graduado em Ciência da Computação na Universidade FUMEC e possuo experiência profissional com desenvolvimento web, sistemas internos, fluxos de automação e qualificação de leads com inteligência artificial.',
-        'Minha experiência inclui o uso de ReactJS, Node.js, PHP, JavaScript, MySQL e ferramentas modernas de desenvolvimento web. Comecei minha trajetória profissional como estagiário em desenvolvimento web, evoluí para desenvolvedor web júnior e hoje atuo com iniciativas de automação focadas em funis inteligentes, integrações com CRMs e fluxos de negócio.',
-        'Atualmente, meu principal foco é construir soluções que ajudam empresas a automatizar tarefas repetitivas, organizar informações de leads, conectar CRMs, melhorar processos de atendimento e apoiar decisões por meio da tecnologia.',
-      ],
-    },
-    focus: {
-      kicker: 'Foco profissional',
-      title: 'Tecnologia para resolver problemas reais de negócio',
-      paragraphs: [
-        'Meu trabalho é focado na criação de tecnologias que resolvem problemas reais de negócio.',
-        'Desenvolvo e mantenho sistemas web, estruturo fluxos de automação, integro CRMs, registro dados em plataformas externas e crio lógicas de chatbot que direcionam usuários para agendamento, qualificação ou atendimento humano quando necessário.',
-        'Gosto de atuar na interseção entre desenvolvimento de software, automação e experiência do cliente, transformando regras de negócio complexas em fluxos digitais claros, funcionais e escaláveis.',
-      ],
-      pillars: [
-        { value: 'Web', label: 'Sistemas e interfaces' },
-        { value: 'CRM', label: 'Dados e integrações' },
-        { value: 'IA', label: 'Fluxos inteligentes' },
-      ],
+      resumeButton: 'Currículo',
     },
     skills: {
       kicker: 'Habilidades técnicas',

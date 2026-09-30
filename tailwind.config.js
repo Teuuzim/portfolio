@@ -34,7 +34,7 @@ export default {
         mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
-        'display-xl': ['clamp(2.75rem, 1.6rem + 4.2vw, 5rem)', { lineHeight: '1.02', letterSpacing: '-0.04em' }],
+        'display-2xl': ['clamp(3rem, 1rem + 6.4vw, 7.25rem)', { lineHeight: '0.95', letterSpacing: '-0.05em' }],
       },
       boxShadow: {
         card: '0 22px 60px -36px rgba(7, 59, 45, 0.38)',
