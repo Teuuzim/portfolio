@@ -1,5 +1,4 @@
 import { MotionConfig } from 'motion/react'
-import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Education } from './components/Education'
 import { Experience } from './components/Experience'
@@ -34,7 +33,6 @@ function App() {
       <main id="main-content">
         <Hero language={language} />
         <Reveal><Projects language={language} /></Reveal>
-        <Reveal><About language={language} /></Reveal>
         <Reveal><Skills language={language} /></Reveal>
         <Reveal><Experience language={language} /></Reveal>
         <Reveal><Education language={language} /></Reveal>
