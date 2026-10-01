@@ -7,7 +7,6 @@ import { TiltCard } from './interactive/TiltCard'
 
 export function Skills({ language }: { language: Language }) {
   const { skills } = translations[language]
-  const marqueeItems = skills.groups.flatMap((group) => group.items)
 
   return (
     <section id="skills" className="section-space scroll-mt-20 overflow-hidden">
@@ -39,20 +38,6 @@ export function Skills({ language }: { language: Language }) {
                 </ul>
               </TiltCard>
             </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <div className="relative mt-16 flex select-none overflow-hidden border-y border-brand-700/10 py-4 dark:border-emerald-300/10 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-        <div className="marquee-track flex w-max shrink-0 gap-8 pr-8">
-          {[...marqueeItems, ...marqueeItems].map((item, index) => (
-            <span
-              key={`${item}-${index}`}
-              aria-hidden={index >= marqueeItems.length}
-              className="font-mono text-sm font-semibold uppercase tracking-[0.14em] text-brand-700/50 dark:text-emerald-300/40"
-            >
-              {item}
-            </span>
           ))}
         </div>
       </div>
