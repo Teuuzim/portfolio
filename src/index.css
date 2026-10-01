@@ -133,20 +133,6 @@
   mask-image: linear-gradient(to bottom, black 10%, transparent 75%);
 }
 
-.marquee-track {
-  animation: marquee-scroll 60s linear infinite;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Film-grain texture: the one thing that keeps large flat color fields from
    looking like plain CSS rectangles. Kept far below the threshold of noticing. */
 body::after {
