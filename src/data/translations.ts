@@ -363,7 +363,7 @@ export const translations: Record<Language, PortfolioContent> = {
     hero: {
       greeting: 'Olá, eu sou',
       role: 'Desenvolvedor Full-Stack e Especialista em Automação com IA.',
-      bio: 'Formado em Ciência da Computação pela FUMEC. Desenvolvo sistemas web, integro CRMs e crio fluxos com IA que automatizam o atendimento e a qualificação de leads, transformando regras de negócio em processos claros e escaláveis.',
+      bio: 'Formado em Ciência da Computação pela Universidade FUMEC. Desenvolvo sistemas web, integro CRMs e crio fluxos com IA que automatizam o atendimento e a qualificação de leads, transformando regras de negócio em processos claros e escaláveis.',
       status: 'Aberto a oportunidades',
       projectsButton: 'Ver projetos',
       resumeButton: 'Currículo',
@@ -556,7 +556,7 @@ export const translations: Record<Language, PortfolioContent> = {
       location: 'Belo Horizonte, Brasil',
       period: 'Fevereiro de 2022 – Julho de 2026',
       paragraphs: [
-        'As disciplinas relevantes incluem Java, Spring, C++, C, Python, Unreal Engine, Sistemas Operacionais, Algoritmos e Estruturas de Dados, Banco de Dados, Arquitetura de Computadores e Redes de Computadores.',
+        'Algumas disciplinas estudadas: Java, Spring, C++, C, Python, Unreal Engine, Sistemas Operacionais, Algoritmos e Estruturas de Dados, Banco de Dados, Arquitetura de Computadores e Redes de Computadores.',
         'Minha formação acadêmica complementa minha experiência profissional ao fortalecer minha base em desenvolvimento de software, resolução de problemas, arquitetura de sistemas e pensamento computacional.',
       ],
     },
