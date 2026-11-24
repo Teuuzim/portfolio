@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { SplitText } from './interactive/SplitText'
+import { ScrollRevealText } from './interactive/ScrollRevealText'
 
 interface SectionHeadingProps {
   kicker: string
@@ -20,9 +20,9 @@ export function SectionHeading({ kicker, title, subtitle, align = 'left' }: Sect
       >
         {kicker}
       </motion.p>
-      <SplitText as="h2" className="section-title block">
+      <ScrollRevealText as="h2" className="section-title block">
         {title}
-      </SplitText>
+      </ScrollRevealText>
       {subtitle && <p className="section-subtitle">{subtitle}</p>}
     </header>
   )

@@ -1,9 +1,67 @@
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { useRef, useState } from 'react'
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
 import { SectionHeading } from './SectionHeading'
+
+/*
+ * Scroll-drawn timeline, rebuilt after the scroll timelines on 21st.dev
+ * (Aceternity's "Timeline" by Manu Arora and ibrandify's "Scroll animated
+ * timeline"). The beam and every dot key off the same line, the vertical
+ * middle of the viewport, so a dot lights up exactly as the beam's tip
+ * reaches it.
+ */
+const TRACK_OFFSET = ['start 50%', 'end 50%'] as const
+const SPRING = { stiffness: 140, damping: 30, mass: 0.3, restDelta: 0.001 }
+
+function TimelineBeam() {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: [...TRACK_OFFSET] })
+  const progress = useSpring(scrollYProgress, SPRING)
+  const tipTop = useTransform(progress, (value) => `${value * 100}%`)
+  const visible = useTransform(progress, [0, 0.02], [0, 1])
+
+  return (
+    <div
+      ref={trackRef}
+      className="absolute bottom-5 left-[19px] top-5 w-px bg-brand-700/15 md:left-1/2 dark:bg-emerald-300/10"
+      aria-hidden="true"
+    >
+      <motion.div
+        className="absolute inset-y-0 -left-px w-[3px] origin-top rounded-full bg-gradient-to-b from-transparent via-brand-500 to-accent-500 dark:via-emerald-300 dark:to-accent-300"
+        style={{ scaleY: progress, opacity: visible }}
+      />
+      <motion.span
+        className="absolute left-1/2 h-3 w-3 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(var(--color-accent-rgb),0.18),0_0_22px_6px_rgba(var(--color-accent-rgb),0.55)] dark:bg-accent-300"
+        style={{ top: tipTop, x: '-50%', y: '-50%', opacity: visible }}
+      />
+    </div>
+  )
+}
+
+function TimelineDot({ side }: { side: 'left' | 'right' }) {
+  const dotRef = useRef<HTMLSpanElement>(null)
+  const { scrollYProgress } = useScroll({ target: dotRef, offset: [...TRACK_OFFSET] })
+  const lit = useSpring(scrollYProgress, SPRING)
+  const scale = useTransform(lit, [0, 1], [0.55, 1])
+
+  return (
+    <span
+      ref={dotRef}
+      className={`absolute left-2.5 top-7 z-10 h-5 w-5 rounded-full bg-panel md:left-auto ${
+        side === 'left' ? 'md:-right-2.5' : 'md:-left-2.5'
+      }`}
+      aria-hidden="true"
+    >
+      <span className="absolute inset-1 rounded-full bg-brand-700/25 dark:bg-emerald-300/20" />
+      <motion.span
+        className="absolute inset-1 rounded-full bg-brand-700 shadow-[0_0_0_4px_rgba(22,132,91,0.16),0_0_18px_4px_rgba(52,211,153,0.5)] dark:bg-emerald-300"
+        style={{ opacity: lit, scale }}
+      />
+    </span>
+  )
+}
 
 export function Experience({ language }: { language: Language }) {
   const { experience, labels } = translations[language]
@@ -20,7 +78,7 @@ export function Experience({ language }: { language: Language }) {
         />
 
         <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="absolute bottom-5 left-[19px] top-5 w-px bg-brand-700/25 md:left-1/2 dark:bg-emerald-300/20" aria-hidden="true" />
+          <TimelineBeam />
           <div className="space-y-10 md:space-y-14">
             {experience.items.map((item, index) => {
               const isExpanded = expanded === index
@@ -35,12 +93,7 @@ export function Experience({ language }: { language: Language }) {
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <span
-                    className={`absolute left-2.5 top-7 z-10 grid h-5 w-5 place-items-center rounded-full border-4 border-panel bg-brand-700 md:left-auto dark:bg-emerald-300 ${
-                      index % 2 === 0 ? 'md:-right-2.5' : 'md:-left-2.5'
-                    }`}
-                    aria-hidden="true"
-                  />
+                  <TimelineDot side={index % 2 === 0 ? 'left' : 'right'} />
                   <div className="card overflow-hidden p-6 sm:p-7">
                     <div className="flex flex-wrap items-start gap-4">
                       <span className="icon-box">

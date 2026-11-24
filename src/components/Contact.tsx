@@ -2,6 +2,7 @@ import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
 import { MagneticButton } from './interactive/MagneticButton'
+import { ShineBorder } from './interactive/ShineBorder'
 
 export function Contact({ language }: { language: Language }) {
   const { contact, labels } = translations[language]
@@ -14,7 +15,7 @@ export function Contact({ language }: { language: Language }) {
   return (
     <section id="contact" className="section-space scroll-mt-20 bg-panel">
       <div className="container-shell">
-        <div className="grid overflow-hidden rounded-[2rem] border border-brand-700/15 bg-white shadow-card lg:grid-cols-[0.9fr_1.1fr] dark:border-green-400/15 dark:bg-[#121C16] dark:shadow-card-dark">
+        <div className="relative grid overflow-hidden rounded-[2rem] border border-brand-700/15 bg-white shadow-card lg:grid-cols-[0.9fr_1.1fr] dark:border-green-400/15 dark:bg-[#121C16] dark:shadow-card-dark">
           <div className="bg-deep p-8 text-white sm:p-10 lg:p-12">
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">{contact.kicker}</p>
             <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{contact.title}</h2>
@@ -49,6 +50,8 @@ export function Contact({ language }: { language: Language }) {
               </MagneticButton>
             ))}
           </div>
+
+          <ShineBorder borderWidth={2} duration={16} />
         </div>
       </div>
     </section>

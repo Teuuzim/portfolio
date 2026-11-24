@@ -2,7 +2,9 @@ import { motion } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { Icon } from './Icon'
+import { BeamsBackground } from './interactive/BeamsBackground'
 import { MagneticButton } from './interactive/MagneticButton'
+import { ScrambleText } from './interactive/ScrambleText'
 
 interface HeroProps {
   language: Language
@@ -21,12 +23,16 @@ export function Hero({ language }: HeroProps) {
 
   return (
     <section id="top" className="relative overflow-hidden">
+      {/* Fades out before the section ends so the beams hand off cleanly to the panel below. */}
+      <BeamsBackground className="opacity-90 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] dark:opacity-100" />
       <div className="hero-grid absolute inset-0 opacity-40 dark:opacity-25" aria-hidden="true" />
 
       <div className="container-shell relative grid min-h-[100svh] items-center gap-12 pb-16 pt-28 lg:grid-cols-[1fr_auto] lg:gap-20">
         <div className="order-2 lg:order-1">
           <p className="font-mono text-sm font-semibold text-brand-700 dark:text-emerald-300">{t.greeting}</p>
-          <h1 className="mt-3 font-display text-display-2xl font-bold text-ink">Matheus Vaz</h1>
+          <ScrambleText as="h1" delay={250} duration={1100} className="mt-3 font-display text-display-2xl font-bold text-ink">
+            Matheus Vaz
+          </ScrambleText>
 
           <p className="mt-8 max-w-2xl font-display text-2xl font-medium leading-snug tracking-[-0.02em] text-ink sm:text-3xl">
             {t.role}
