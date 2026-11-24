@@ -36,6 +36,16 @@ export default {
       fontSize: {
         'display-2xl': ['clamp(3rem, 1rem + 6.4vw, 7.25rem)', { lineHeight: '0.95', letterSpacing: '-0.05em' }],
       },
+      keyframes: {
+        shine: {
+          '0%': { backgroundPosition: '0% 0%' },
+          '50%': { backgroundPosition: '100% 100%' },
+          '100%': { backgroundPosition: '0% 0%' },
+        },
+      },
+      animation: {
+        shine: 'shine var(--duration) infinite linear',
+      },
       boxShadow: {
         card: '0 22px 60px -36px rgba(7, 59, 45, 0.38)',
         'card-dark': '0 18px 50px -30px rgba(0, 0, 0, 0.8)',

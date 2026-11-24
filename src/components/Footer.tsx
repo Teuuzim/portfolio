@@ -11,7 +11,14 @@ export function Footer({ language }: { language: Language }) {
       <div className="container-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <div className="max-w-2xl">
           <a href="#top" className="inline-flex items-center gap-3 font-display text-lg font-bold text-gray-900 dark:text-slate-50">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-700 text-xs text-white dark:bg-green-700">MV</span>
+            <img
+              src="/Teu.jpg"
+              alt=""
+              width={40}
+              height={40}
+              loading="lazy"
+              className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-md dark:border-slate-800"
+            />
             Matheus Vaz
           </a>
           <p className="mt-5 text-sm leading-6 text-gray-500 dark:text-slate-400">{footer.description}</p>

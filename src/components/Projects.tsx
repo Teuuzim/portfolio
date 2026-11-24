@@ -5,6 +5,7 @@ import { translations, type ProjectItem } from '../data/translations'
 import { Icon } from './Icon'
 import { SectionHeading } from './SectionHeading'
 import { ProjectPreview } from './ProjectPreview'
+import { ShineBorder } from './interactive/ShineBorder'
 
 type ProjectLabels = { liveDemo: string; repository: string; galleryHint: string }
 
@@ -219,6 +220,8 @@ function PreviewPanel({ project, index, total, labels, language }: {
           </span>
         ))}
       </div>
+
+      <ShineBorder borderWidth={1.5} duration={12} />
     </div>
   )
 }
