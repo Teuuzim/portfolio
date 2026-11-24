@@ -1,59 +1,55 @@
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
+import { profile } from '../data/profile'
 import { Icon } from './Icon'
-import { MagneticButton } from './interactive/MagneticButton'
-import { ShineBorder } from './interactive/ShineBorder'
+import { Reveal } from './Reveal'
+import { SocialMedia } from './SocialMedia'
 
 export function Contact({ language }: { language: Language }) {
-  const { contact, labels } = translations[language]
-  const contacts = [
-    { label: labels.email, value: 'matheusvaz01@yahoo.com.br', href: 'mailto:matheusvaz01@yahoo.com.br', icon: 'mail' as const },
-    { label: labels.github, value: '@Teuuzim', href: 'https://github.com/Teuuzim', icon: 'github' as const },
-    { label: labels.linkedin, value: 'Matheus Vaz', href: 'https://linkedin.com/in/matheus-vaz-1a3a2021a', icon: 'linkedin' as const },
-  ]
+  const { contact, hero } = translations[language]
+  const [intro, ...rest] = contact.paragraphs
 
   return (
-    <section id="contact" className="section-space scroll-mt-20 bg-panel">
-      <div className="container-shell">
-        <div className="relative grid overflow-hidden rounded-[2rem] border border-brand-700/15 bg-white shadow-card lg:grid-cols-[0.9fr_1.1fr] dark:border-green-400/15 dark:bg-[#121C16] dark:shadow-card-dark">
-          <div className="bg-deep p-8 text-white sm:p-10 lg:p-12">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300">{contact.kicker}</p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">{contact.title}</h2>
-            <div className="mt-6 space-y-4 leading-7 text-green-50/80">
-              {contact.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-            <div className="mt-9 flex items-start gap-3 border-t border-white/15 pt-7 text-sm text-green-50/90">
-              <Icon name="map" className="mt-0.5 h-5 w-5 shrink-0 text-green-200" />
-              <div>
-                <p className="font-semibold text-white">{labels.location}</p>
-                <p className="mt-1">{contact.location}</p>
-              </div>
-            </div>
-          </div>
+    <section id="contact" className="shell section grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-16">
+      <Reveal from="left">
+        <h2 className="section-title">{contact.title}</h2>
+        <p className="section-subtitle">{intro}</p>
 
-          <div className="grid gap-4 p-6 sm:p-10 lg:p-12">
-            {contacts.map((item) => (
-              <MagneticButton
-                key={item.label}
-                href={item.href}
-                target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-                strength={0.2}
-                className="group flex min-w-0 items-center gap-4 rounded-2xl border border-brand-700/10 bg-[#F7FAF8] p-5 transition-all hover:-translate-y-0.5 hover:border-brand-700/30 hover:shadow-card dark:border-green-400/10 dark:bg-[#0E1511] dark:hover:border-green-400/30"
-              >
-                <span className="icon-box shrink-0"><Icon name={item.icon} /></span>
-                <span className="min-w-0">
-                  <span className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">{item.label}</span>
-                  <span className="mt-1 block truncate text-sm font-semibold text-gray-800 sm:text-base dark:text-slate-100">{item.value}</span>
-                </span>
-                <Icon name="external" className="ml-auto h-4 w-4 shrink-0 text-brand-700 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 dark:text-green-400" />
-              </MagneticButton>
-            ))}
-          </div>
+        <a
+          href={`mailto:${profile.email}`}
+          className="mt-8 inline-block break-all text-xl font-semibold text-fg underline-offset-4 hover:text-accent hover:underline dark:hover:text-accent-soft sm:text-2xl"
+        >
+          {profile.email}
+        </a>
 
-          <ShineBorder borderWidth={2} duration={16} />
-        </div>
-      </div>
+        {rest.map((paragraph) => (
+          <p key={paragraph} className="mt-4 text-lg text-muted">
+            {paragraph}
+          </p>
+        ))}
+
+        <p className="mt-6 flex items-center gap-2 text-lg">
+          <Icon name="map" className="h-5 w-5 shrink-0" />
+          {contact.location}
+        </p>
+        <p className="mt-3 flex items-center gap-2 text-lg">
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" aria-hidden="true" />
+          {hero.status}
+        </p>
+
+        <SocialMedia className="mt-8" />
+      </Reveal>
+
+      <Reveal from="right" className="mx-auto">
+        <img
+          src={profile.photo}
+          alt={profile.name}
+          width={424}
+          height={424}
+          loading="lazy"
+          className="h-64 w-64 rounded-full border-[7px] border-accent-soft object-cover shadow-card-hover sm:h-72 sm:w-72"
+        />
+      </Reveal>
     </section>
   )
 }

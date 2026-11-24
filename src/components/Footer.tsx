@@ -1,36 +1,26 @@
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
-import { Icon } from './Icon'
-import { MagneticButton } from './interactive/MagneticButton'
+import { profile } from '../data/profile'
 
 export function Footer({ language }: { language: Language }) {
   const { footer } = translations[language]
 
   return (
-    <footer className="border-t border-brand-700/10 bg-canvas py-10 dark:border-emerald-300/10">
-      <div className="container-shell grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-        <div className="max-w-2xl">
-          <a href="#top" className="inline-flex items-center gap-3 font-display text-lg font-bold text-gray-900 dark:text-slate-50">
-            <img
-              src="/Teu.jpg"
-              alt=""
-              width={40}
-              height={40}
-              loading="lazy"
-              className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-md dark:border-slate-800"
-            />
-            Matheus Vaz
-          </a>
-          <p className="mt-5 text-sm leading-6 text-gray-500 dark:text-slate-400">{footer.description}</p>
-          <p className="mt-5 text-xs text-gray-400 dark:text-slate-500">
-            © {new Date().getFullYear()} Matheus Henrique Vaz Marques. {footer.rights}
-          </p>
-        </div>
-        <MagneticButton href="#top" className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-600 dark:text-green-400 dark:hover:text-green-300">
-          {footer.backToTop}
-          <Icon name="arrow" className="h-4 w-4 -rotate-90" />
-        </MagneticButton>
-      </div>
+    <footer className="shell py-10 text-center text-muted">
+      <p>
+        © {new Date().getFullYear()} {profile.fullName}. {footer.rights}
+      </p>
+      <p className="mt-3 text-sm">
+        {footer.credit}{' '}
+        <a
+          href="https://github.com/saadpasta/developerFolio"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent underline underline-offset-2 dark:text-accent-soft"
+        >
+          developerFolio
+        </a>
+      </p>
     </footer>
   )
 }

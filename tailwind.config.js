@@ -5,50 +5,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#EDF8F1',
-          100: '#D5F0DF',
-          500: '#16845B',
-          600: '#11704D',
-          700: '#0C5C42',
-          900: '#073B2D',
-        },
-        accent: {
-          50: '#FDF3E9',
-          100: '#FBE3C8',
-          300: '#F3B571',
-          500: '#E8873A',
-          600: '#D06E24',
-          700: '#A9551A',
-        },
-        canvas: 'rgb(var(--color-canvas) / <alpha-value>)',
-        panel: 'rgb(var(--color-panel) / <alpha-value>)',
-        surface: 'rgb(var(--color-card) / <alpha-value>)',
-        deep: 'rgb(var(--color-deep) / <alpha-value>)',
-        border: 'rgb(var(--color-border) / <alpha-value>)',
-        ink: 'rgb(var(--color-ink) / <alpha-value>)',
+        // Every color is a CSS variable (see index.css), so the theme toggle and
+        // a future palette change both happen in one place.
+        bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        fg: 'rgb(var(--color-fg) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        card: 'rgb(var(--color-card) / <alpha-value>)',
+        line: 'rgb(var(--color-line) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        'accent-soft': 'rgb(var(--color-accent-soft) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['IBM Plex Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Space Grotesk', 'IBM Plex Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        script: ['"Herr Von Muellerhoff"', 'cursive'],
       },
-      fontSize: {
-        'display-2xl': ['clamp(3rem, 1rem + 6.4vw, 7.25rem)', { lineHeight: '0.95', letterSpacing: '-0.05em' }],
+      boxShadow: {
+        card: '0 10px 30px -12px rgba(0, 0, 0, 0.18)',
+        'card-hover': '0 20px 40px -14px rgba(0, 0, 0, 0.28)',
       },
       keyframes: {
-        shine: {
-          '0%': { backgroundPosition: '0% 0%' },
-          '50%': { backgroundPosition: '100% 100%' },
-          '100%': { backgroundPosition: '0% 0%' },
+        wave: {
+          '0%, 60%, 100%': { transform: 'rotate(0deg)' },
+          '10%, 30%': { transform: 'rotate(14deg)' },
+          '20%': { transform: 'rotate(-8deg)' },
+          '40%': { transform: 'rotate(-4deg)' },
+          '50%': { transform: 'rotate(10deg)' },
         },
       },
       animation: {
-        shine: 'shine var(--duration) infinite linear',
-      },
-      boxShadow: {
-        card: '0 22px 60px -36px rgba(7, 59, 45, 0.38)',
-        'card-dark': '0 18px 50px -30px rgba(0, 0, 0, 0.8)',
+        wave: 'wave 2.2s ease-in-out infinite',
       },
     },
   },

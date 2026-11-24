@@ -9,144 +9,72 @@
     text-rendering: optimizeLegibility;
 
     /* Space-separated channels so Tailwind's /opacity modifiers resolve. */
-    --color-canvas: 244 248 245;
-    --color-panel: 231 242 234;
+    --color-bg: 255 255 255;
+    --color-fg: 0 0 0;
+    --color-muted: 134 142 150;
     --color-card: 255 255 255;
-    --color-deep: 7 59 45;
-    --color-border: 200 222 208;
-    --color-ink: 21 51 41;
-    --color-accent-rgb: 232, 135, 58;
+    --color-line: 233 236 239;
+    /* The one accent: buttons, links, rings. Change it here to re-theme. */
+    --color-accent: 85 25 139;
+    --color-accent-soft: 108 99 255;
   }
 
   :root.dark {
     color-scheme: dark;
 
-    --color-canvas: 7 21 16;
-    --color-panel: 9 27 21;
-    --color-card: 13 33 26;
-    --color-deep: 6 42 32;
-    --color-border: 34 48 41;
-    --color-ink: 248 250 252;
-    --color-accent-rgb: 243, 181, 113;
+    --color-bg: 23 28 40;
+    --color-fg: 255 255 255;
+    --color-muted: 173 181 189;
+    --color-card: 29 35 51;
+    --color-line: 45 52 70;
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
-    @apply m-0 min-w-80 bg-canvas font-sans text-ink antialiased transition-colors duration-300;
+    @apply m-0 min-w-80 bg-bg font-sans text-fg antialiased transition-colors duration-300;
   }
 
   ::selection {
-    @apply bg-emerald-300 text-[#071510];
+    @apply bg-accent-soft text-white;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-emerald-600 ring-offset-2 ring-offset-canvas dark:ring-emerald-300;
+    @apply outline-none ring-2 ring-accent-soft ring-offset-2 ring-offset-bg;
   }
 }
 
 @layer components {
-  .container-shell {
-    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
+  .shell {
+    @apply mx-auto w-[90%] max-w-[1300px];
   }
 
-  .section-space {
-    @apply py-20 sm:py-24 lg:py-28;
-  }
-
-  .section-kicker {
-    @apply mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700 dark:text-emerald-300;
+  .section {
+    @apply py-16 sm:py-20;
   }
 
   .section-title {
-    @apply font-display text-3xl font-extrabold leading-tight tracking-[-0.035em] text-gray-900 sm:text-4xl lg:text-[2.75rem] dark:text-slate-50;
+    @apply text-4xl font-normal leading-tight sm:text-5xl lg:text-[56px];
   }
 
   .section-subtitle {
-    @apply mt-5 text-base leading-7 text-gray-500 sm:text-lg dark:text-slate-400;
+    @apply mt-3 text-base uppercase leading-snug text-muted sm:text-lg;
   }
 
-  .card {
-    @apply rounded-[1.25rem] border border-border bg-surface shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-500/50 dark:shadow-card-dark dark:hover:border-emerald-300/35;
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded border-2 border-accent bg-accent px-6 py-3 text-sm font-bold uppercase tracking-tight text-white transition-colors duration-200 hover:bg-transparent hover:text-accent dark:hover:border-accent-soft dark:hover:text-accent-soft sm:text-base;
   }
 
-  .icon-box {
-    @apply grid h-11 w-11 place-items-center rounded-xl bg-brand-500/10 text-brand-700 dark:bg-emerald-300/10 dark:text-emerald-300;
-  }
-
-  .nav-link {
-    @apply relative rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-emerald-300;
-  }
-
-  .nav-link::after {
-    content: '';
-    @apply absolute inset-x-3 bottom-1.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)];
-  }
-
-  .nav-link:hover::after,
-  .nav-link[aria-current='true']::after {
-    @apply scale-x-100;
-  }
-
-  .nav-link[aria-current='true'] {
-    @apply text-brand-700 dark:text-emerald-300;
-  }
-
-
-  .control-button {
-    @apply grid h-10 w-10 place-items-center rounded-xl border border-brand-700/15 bg-white/80 text-brand-700 transition-all hover:border-brand-500/50 hover:bg-brand-500/5 dark:border-white/10 dark:bg-[#0D211A]/80 dark:text-emerald-300 dark:hover:border-emerald-300/35;
-  }
-
-  .button-primary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/15 transition-all hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-xl dark:bg-emerald-300 dark:text-[#071510] dark:hover:bg-emerald-200;
-  }
-
-  .button-secondary {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-brand-700/20 bg-white/80 px-5 py-3 text-sm font-bold text-[#153329] shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-white/15 dark:bg-[#0D211A]/80 dark:text-slate-100 dark:hover:border-emerald-300/40 dark:hover:text-emerald-300;
-  }
-
-  .button-icon {
-    @apply grid h-12 w-12 place-items-center rounded-xl border border-brand-700/20 bg-white/80 text-slate-700 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-700/40 hover:text-brand-700 dark:border-white/15 dark:bg-[#0D211A]/80 dark:text-slate-200 dark:hover:border-emerald-300/40 dark:hover:text-emerald-300;
-  }
-
-  .tag {
-    @apply rounded-full border border-brand-700/10 bg-brand-500/[0.07] px-3 py-1.5 font-mono text-[10px] font-semibold leading-none text-brand-700 dark:border-emerald-300/10 dark:bg-emerald-300/[0.08] dark:text-emerald-300;
-  }
-
-  .project-link {
-    @apply inline-flex items-center gap-2 rounded-lg text-sm font-bold text-brand-700 transition-colors hover:text-brand-600 dark:text-emerald-300 dark:hover:text-emerald-200;
+  .btn-small {
+    @apply inline-flex items-center gap-1.5 rounded border border-accent bg-accent px-3 py-1 text-sm font-medium text-white transition-colors duration-200 hover:bg-transparent hover:text-accent dark:hover:border-accent-soft dark:hover:text-accent-soft;
   }
 
   .skip-link {
-    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-lg bg-brand-700 px-4 py-3 text-sm font-bold text-white transition-transform focus:translate-y-0;
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded bg-accent px-4 py-3 text-sm font-bold text-white transition-transform focus:translate-y-0;
   }
-}
-
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(22, 132, 91, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 132, 91, 0.06) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(to bottom, black 10%, transparent 75%);
-}
-
-/* Film-grain texture: the one thing that keeps large flat color fields from
-   looking like plain CSS rectangles. Kept far below the threshold of noticing. */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.032;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-:root.dark body::after {
-  opacity: 0.045;
 }
 
 @media (prefers-reduced-motion: reduce) {
