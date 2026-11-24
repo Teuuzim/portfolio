@@ -3,8 +3,8 @@ import { translations, type ExperienceItem } from '../data/translations'
 import { Reveal } from './Reveal'
 
 // Without company logos to sample a color from, each company gets one from a
-// fixed set, in order of first appearance.
-const BANNER_COLORS = ['#55198b', '#1d4f91', '#0f766e', '#9a3412']
+// fixed set, in order of first appearance. The first follows the site accent.
+const BANNER_COLORS = ['rgb(var(--color-accent))', '#1d4f91', '#0f766e', '#9a3412']
 
 function bannerColors(items: ExperienceItem[]) {
   const byCompany = new Map<string, string>()
