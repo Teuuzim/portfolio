@@ -35,12 +35,15 @@ function FloaterImage({
   floater,
   index,
   play,
+  looping,
   pointerX,
   pointerY,
 }: {
   floater: Floater
   index: number
   play: boolean
+  /** False once the scene scrolls away: the loop parks, so it costs nothing off screen. */
+  looping: boolean
   pointerX: MotionValue<number>
   pointerY: MotionValue<number>
 }) {
@@ -63,15 +66,18 @@ function FloaterImage({
         className="w-full drop-shadow-[0_10px_14px_rgba(30,27,75,0.18)]"
         initial={{ opacity: 0, scale: 0.4 }}
         animate={
-          play
-            ? { opacity: 1, scale: 1, y: [0, -12, 0], rotate: [0, floater.sway ?? 4, 0] }
-            : { opacity: 0, scale: 0.4 }
+          !play
+            ? { opacity: 0, scale: 0.4 }
+            : looping
+              ? { opacity: 1, scale: 1, y: [0, -12, 0], rotate: [0, floater.sway ?? 4, 0] }
+              : { opacity: 1, scale: 1, y: 0, rotate: 0 }
         }
         transition={{
           opacity: { duration: 0.45, delay: entranceDelay },
           scale: { type: 'spring', stiffness: 260, damping: 16, delay: entranceDelay },
-          y: { duration: period, ease: EASE_IN_OUT, repeat: Infinity, delay: entranceDelay },
-          rotate: { duration: period * 1.3, ease: EASE_IN_OUT, repeat: Infinity, delay: entranceDelay },
+          // Parking must not repeat, or it would loop 0 -> 0 forever off screen.
+          y: looping ? { duration: period, ease: EASE_IN_OUT, repeat: Infinity, delay: entranceDelay } : { duration: 0.4 },
+          rotate: looping ? { duration: period * 1.3, ease: EASE_IN_OUT, repeat: Infinity, delay: entranceDelay } : { duration: 0.4 },
         }}
       />
     </motion.div>
@@ -88,6 +94,7 @@ export function FloatingScene({ src, width, height, floaters, play = true, eager
   // The entrance plays the first time the scene is on screen, so a scene further
   // down the page hasn't already finished by the time the reader scrolls to it.
   const inView = useInView(ref, { once: true, amount: 0.25 })
+  const onScreen = useInView(ref)
   const active = play && inView
   const reduceMotion = useReducedMotion()
   const rawX = useMotionValue(0)
@@ -125,8 +132,8 @@ export function FloatingScene({ src, width, height, floaters, play = true, eager
           loading={eager ? undefined : 'lazy'}
           draggable={false}
           className="w-full"
-          animate={active ? { y: [0, -6, 0] } : undefined}
-          transition={{ duration: 6, ease: EASE_IN_OUT, repeat: Infinity }}
+          animate={active && onScreen ? { y: [0, -6, 0] } : { y: 0 }}
+          transition={active && onScreen ? { duration: 6, ease: EASE_IN_OUT, repeat: Infinity } : { duration: 0.4 }}
         />
       </motion.div>
       {floaters.map((floater, index) => (
@@ -135,6 +142,7 @@ export function FloatingScene({ src, width, height, floaters, play = true, eager
           floater={floater}
           index={index}
           play={active}
+          looping={onScreen}
           pointerX={pointerX}
           pointerY={pointerY}
         />

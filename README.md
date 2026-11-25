@@ -43,7 +43,7 @@ Além de estudos, o portfólio reúne projetos reais entregues para clientes:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Motion](https://motion.dev/) para as animações de entrada
 - [Simple Icons](https://simpleicons.org/) para os logos de tecnologias
-- Ilustrações do [unDraw](https://undraw.co/)
+- Ilustrações originais geradas com o Nano Banana (Gemini), recortadas e animadas no site
 
 ## Créditos
 

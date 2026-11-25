@@ -80,25 +80,26 @@ export function Header({ language, theme, onLanguageToggle, onThemeToggle }: Hea
     <header
       className={`sticky top-0 z-50 bg-bg transition-transform duration-300 ${hidden && !open ? '-translate-y-full' : ''}`}
     >
-      <div className="shell flex h-20 items-center justify-between gap-6 sm:h-24">
-        <a href="#top" className="text-xl sm:text-2xl" aria-label="Matheus Vaz">
+      <div className="shell flex h-20 items-center justify-between gap-3 sm:h-24 sm:gap-6">
+        {/* Smaller below 380px so logo, language, theme and menu still share one row on the narrowest phones. */}
+        <a href="#top" className="shrink-0 text-base min-[380px]:text-xl sm:text-2xl" aria-label="Matheus Vaz">
           <Logo />
         </a>
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 xl:flex">
           {links.map((link) => (
             <a
               key={link.label}
               href={link.href}
               download={link.download || undefined}
-              className="rounded px-3 py-2 text-[17px] text-fg transition-colors hover:bg-line/60 xl:px-4"
+              className="rounded px-3 py-2 text-[17px] text-fg transition-colors hover:bg-line/60 2xl:px-4"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={onLanguageToggle}
@@ -110,7 +111,7 @@ export function Header({ language, theme, onLanguageToggle, onThemeToggle }: Hea
           <ThemeSwitch theme={theme} label={t.theme} onToggle={onThemeToggle} />
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded text-fg lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded text-fg xl:hidden"
             aria-label={open ? t.close : t.menu}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -122,7 +123,7 @@ export function Header({ language, theme, onLanguageToggle, onThemeToggle }: Hea
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Primary" className="border-t border-line bg-bg lg:hidden">
+        <nav id="mobile-menu" aria-label="Primary" className="border-t border-line bg-bg xl:hidden">
           <ul className="shell py-2">
             {links.map((link) => (
               <li key={link.label} className="border-b border-line last:border-b-0">
