@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#071510" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta
       name="description"
       content="Portfólio de Matheus Henrique Vaz Marques, Desenvolvedor Full-Stack e Especialista em Automação com IA, focado em sistemas web, integrações com CRMs e fluxos com inteligência artificial."
@@ -27,17 +29,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Herr+Von+Muellerhoff&family=Montserrat:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <title>Matheus Vaz | Full-Stack Developer & AI Automation Specialist</title>
     <script>
-      // Dark + pt-BR are the document defaults, so this only undoes them for a
-      // returning visitor who picked otherwise — before first paint, no flash.
+      // Applies the saved theme (or the system one) and language before first
+      // paint, so there is no flash of the wrong colors.
       try {
-        if (localStorage.getItem('portfolio-theme') === 'light') {
-          document.documentElement.classList.remove('dark')
-        }
+        var saved = localStorage.getItem('portfolio-theme')
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (dark) document.documentElement.classList.add('dark')
         if (localStorage.getItem('portfolio-language') === 'en') {
           document.documentElement.lang = 'en'
         }

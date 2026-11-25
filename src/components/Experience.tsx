@@ -1,161 +1,66 @@
-import { useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react'
 import type { Language } from '../hooks/useLanguage'
-import { translations } from '../data/translations'
-import { Icon } from './Icon'
-import { SectionHeading } from './SectionHeading'
+import { translations, type ExperienceItem } from '../data/translations'
+import { Reveal } from './Reveal'
 
-/*
- * Scroll-drawn timeline, rebuilt after the scroll timelines on 21st.dev
- * (Aceternity's "Timeline" by Manu Arora and ibrandify's "Scroll animated
- * timeline"). The beam and every dot key off the same line, the vertical
- * middle of the viewport, so a dot lights up exactly as the beam's tip
- * reaches it.
- */
-const TRACK_OFFSET = ['start 50%', 'end 50%'] as const
-const SPRING = { stiffness: 140, damping: 30, mass: 0.3, restDelta: 0.001 }
+// Without company logos to sample a color from, each company gets one from a
+// fixed set, in order of first appearance. The first follows the site accent.
+const BANNER_COLORS = ['rgb(var(--color-accent))', '#1d4f91', '#0f766e', '#9a3412']
 
-function TimelineBeam() {
-  const trackRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: trackRef, offset: [...TRACK_OFFSET] })
-  const progress = useSpring(scrollYProgress, SPRING)
-  const tipTop = useTransform(progress, (value) => `${value * 100}%`)
-  const visible = useTransform(progress, [0, 0.02], [0, 1])
-
-  return (
-    <div
-      ref={trackRef}
-      className="absolute bottom-5 left-[19px] top-5 w-px bg-brand-700/15 md:left-1/2 dark:bg-emerald-300/10"
-      aria-hidden="true"
-    >
-      <motion.div
-        className="absolute inset-y-0 -left-px w-[3px] origin-top rounded-full bg-gradient-to-b from-transparent via-brand-500 to-accent-500 dark:via-emerald-300 dark:to-accent-300"
-        style={{ scaleY: progress, opacity: visible }}
-      />
-      <motion.span
-        className="absolute left-1/2 h-3 w-3 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(var(--color-accent-rgb),0.18),0_0_22px_6px_rgba(var(--color-accent-rgb),0.55)] dark:bg-accent-300"
-        style={{ top: tipTop, x: '-50%', y: '-50%', opacity: visible }}
-      />
-    </div>
-  )
+function bannerColors(items: ExperienceItem[]) {
+  const byCompany = new Map<string, string>()
+  for (const { company } of items) {
+    if (!byCompany.has(company)) byCompany.set(company, BANNER_COLORS[byCompany.size % BANNER_COLORS.length])
+  }
+  return byCompany
 }
 
-function TimelineDot({ side }: { side: 'left' | 'right' }) {
-  const dotRef = useRef<HTMLSpanElement>(null)
-  const { scrollYProgress } = useScroll({ target: dotRef, offset: [...TRACK_OFFSET] })
-  const lit = useSpring(scrollYProgress, SPRING)
-  const scale = useTransform(lit, [0, 1], [0.55, 1])
-
+function ExperienceCard({ item, color }: { item: ExperienceItem; color: string }) {
   return (
-    <span
-      ref={dotRef}
-      className={`absolute left-2.5 top-7 z-10 h-5 w-5 rounded-full bg-panel md:left-auto ${
-        side === 'left' ? 'md:-right-2.5' : 'md:-left-2.5'
-      }`}
-      aria-hidden="true"
-    >
-      <span className="absolute inset-1 rounded-full bg-brand-700/25 dark:bg-emerald-300/20" />
-      <motion.span
-        className="absolute inset-1 rounded-full bg-brand-700 shadow-[0_0_0_4px_rgba(22,132,91,0.16),0_0_18px_4px_rgba(52,211,153,0.5)] dark:bg-emerald-300"
-        style={{ opacity: lit, scale }}
-      />
-    </span>
+    <article className="flex h-full flex-col overflow-hidden rounded-xl bg-card shadow-card ring-1 ring-line transition-shadow duration-300 hover:shadow-card-hover">
+      <div
+        className="relative flex h-40 items-start justify-center px-4 pt-10"
+        style={{ backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0) 70%), linear-gradient(${color}, ${color})` }}
+      >
+        <h3 className="text-center text-2xl font-semibold text-white">{item.company}</h3>
+        <span
+          className="absolute -bottom-12 left-1/2 grid h-24 w-24 -translate-x-1/2 place-items-center rounded-full border-4 border-card text-5xl shadow-lg"
+          style={{ backgroundColor: color }}
+          aria-hidden="true"
+        >
+          {item.emoji}
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col px-6 pb-8 pt-16 text-center">
+        <p className="text-2xl font-medium">{item.role}</p>
+        <p className="mt-2 font-semibold">{item.period}</p>
+        <p className="mt-1 text-sm text-muted">{item.location}</p>
+        <p className="mt-5 leading-relaxed text-muted">{item.description[0]}</p>
+        <ul className="mt-5 list-disc space-y-1.5 pl-5 text-left leading-snug text-muted">
+          {item.activities.map((activity) => (
+            <li key={activity}>{activity}</li>
+          ))}
+        </ul>
+      </div>
+    </article>
   )
 }
 
 export function Experience({ language }: { language: Language }) {
-  const { experience, labels } = translations[language]
-  const [expanded, setExpanded] = useState<number | null>(0)
+  const { experience, nav } = translations[language]
+  const colors = bannerColors(experience.items)
 
   return (
-    <section id="experience" className="section-space scroll-mt-20 bg-panel">
-      <div className="container-shell">
-        <SectionHeading
-          kicker={experience.kicker}
-          title={experience.title}
-          subtitle={experience.subtitle}
-          align="center"
-        />
+    <section id="experience" className="shell section">
+      <h2 className="section-title">{nav.experience}</h2>
+      <p className="section-subtitle">{experience.subtitle}</p>
 
-        <div className="relative mx-auto mt-16 max-w-5xl">
-          <TimelineBeam />
-          <div className="space-y-10 md:space-y-14">
-            {experience.items.map((item, index) => {
-              const isExpanded = expanded === index
-              return (
-                <motion.article
-                  key={`${item.company}-${item.role}`}
-                  className={`relative pl-14 md:w-1/2 md:pl-0 ${
-                    index % 2 === 0 ? 'md:pr-12' : 'md:ml-auto md:pl-12'
-                  }`}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <TimelineDot side={index % 2 === 0 ? 'left' : 'right'} />
-                  <div className="card overflow-hidden p-6 sm:p-7">
-                    <div className="flex flex-wrap items-start gap-4">
-                      <span className="icon-box">
-                        <Icon name="briefcase" />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-700 dark:text-green-400">
-                          {item.period}
-                        </p>
-                        <h3 className="mt-2 font-display text-xl font-bold text-gray-900 dark:text-slate-50">
-                          {item.role}
-                        </h3>
-                        <p className="mt-1 font-semibold text-gray-700 dark:text-slate-200">{item.company}</p>
-                        <p className="mt-1 flex items-center gap-1.5 text-sm text-gray-500 dark:text-slate-400">
-                          <Icon name="map" className="h-4 w-4" />
-                          {item.location}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 space-y-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
-                      {item.description.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                    </div>
-
-                    <button
-                      type="button"
-                      className="mt-6 flex w-full items-center gap-2 border-t border-brand-700/10 pt-5 text-left text-sm font-bold text-brand-700 dark:border-green-400/10 dark:text-green-400"
-                      onClick={() => setExpanded(isExpanded ? null : index)}
-                      aria-expanded={isExpanded}
-                    >
-                      {labels.activities}
-                      <Icon
-                        name="chevron"
-                        className={`ml-auto h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {isExpanded && (
-                        <motion.div
-                          className="overflow-hidden"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                          <ul className="space-y-3 pt-5">
-                            {item.activities.map((activity) => (
-                              <li key={activity} className="flex items-start gap-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
-                                <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
-                                {activity}
-                              </li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.article>
-              )
-            })}
-          </div>
-        </div>
+      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {experience.items.map((item, index) => (
+          <Reveal key={`${item.company}-${item.role}`} from="bottom" delay={index * 0.12} className="h-full">
+            <ExperienceCard item={item} color={colors.get(item.company) ?? BANNER_COLORS[0]} />
+          </Reveal>
+        ))}
       </div>
     </section>
   )

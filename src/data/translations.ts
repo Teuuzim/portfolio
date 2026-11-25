@@ -24,6 +24,8 @@ export interface SkillGroup {
 }
 
 export interface ExperienceItem {
+  /** Stands in for a company logo on the experience card. */
+  emoji: string
   role: string
   company: string
   location: string
@@ -35,7 +37,6 @@ export interface ExperienceItem {
 export type ProjectPreview =
   | { kind: 'image'; src: string }
   | { kind: 'chat' }
-  | { kind: 'sheet' }
 
 export interface ProjectItem {
   title: string
@@ -59,6 +60,7 @@ interface PortfolioContent {
     close: string
     theme: string
     language: string
+    resume: string
   }
   labels: {
     location: string
@@ -69,7 +71,8 @@ interface PortfolioContent {
     email: string
     github: string
     linkedin: string
-    galleryHint: string
+    contactMe: string
+    downloadResume: string
   }
   hero: {
     greeting: string
@@ -79,7 +82,7 @@ interface PortfolioContent {
     projectsButton: string
     resumeButton: string
   }
-  skills: { kicker: string; title: string; subtitle: string; groups: SkillGroup[] }
+  skills: { whatIDo: string; kicker: string; title: string; subtitle: string; groups: SkillGroup[] }
   experience: { kicker: string; title: string; subtitle: string; items: ExperienceItem[] }
   projects: { kicker: string; title: string; subtitle: string; items: ProjectItem[] }
   education: {
@@ -92,7 +95,7 @@ interface PortfolioContent {
     paragraphs: string[]
   }
   contact: { kicker: string; title: string; paragraphs: string[]; location: string }
-  footer: { description: string; rights: string; backToTop: string }
+  footer: { description: string; rights: string; backToTop: string; credit: string }
 }
 
 export const translations: Record<Language, PortfolioContent> = {
@@ -108,6 +111,7 @@ export const translations: Record<Language, PortfolioContent> = {
       close: 'Close navigation menu',
       theme: 'Toggle color theme',
       language: 'Change language to Portuguese',
+      resume: 'Resume',
     },
     labels: {
       location: 'Location',
@@ -118,7 +122,8 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
-      galleryHint: 'Hover or scroll to preview each project',
+      contactMe: 'Contact me',
+      downloadResume: 'Download my resume',
     },
     hero: {
       greeting: 'Hi, I’m',
@@ -129,6 +134,7 @@ export const translations: Record<Language, PortfolioContent> = {
       resumeButton: 'Resume',
     },
     skills: {
+      whatIDo: 'What I do',
       kicker: 'Technical skills',
       title: 'A practical toolkit for end-to-end solutions',
       subtitle:
@@ -182,6 +188,7 @@ export const translations: Record<Language, PortfolioContent> = {
         'A progression from web development foundations to business-focused AI automation.',
       items: [
         {
+          emoji: '🤖',
           role: 'Automation Manager',
           company: 'plugue.ia',
           location: 'Remote',
@@ -203,6 +210,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
         },
         {
+          emoji: '💻',
           role: 'Junior Web Developer',
           company: 'Construsite Brasil',
           location: 'Hybrid',
@@ -222,6 +230,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
         },
         {
+          emoji: '🌱',
           role: 'Web Development Intern',
           company: 'Construsite Brasil',
           location: 'Belo Horizonte, Brazil',
@@ -334,6 +343,7 @@ export const translations: Record<Language, PortfolioContent> = {
         'Full-Stack Developer & AI Automation Specialist focused on building web systems, CRM integrations and intelligent workflows that help businesses automate operations and improve customer interactions.',
       rights: 'All rights reserved.',
       backToTop: 'Back to top',
+      credit: 'Design inspired by',
     },
   },
   pt: {
@@ -348,6 +358,7 @@ export const translations: Record<Language, PortfolioContent> = {
       close: 'Fechar menu de navegação',
       theme: 'Alternar tema de cores',
       language: 'Alterar idioma para inglês',
+      resume: 'Currículo',
     },
     labels: {
       location: 'Localização',
@@ -358,7 +369,8 @@ export const translations: Record<Language, PortfolioContent> = {
       email: 'Email',
       github: 'GitHub',
       linkedin: 'LinkedIn',
-      galleryHint: 'Passe o mouse ou role para ver cada projeto',
+      contactMe: 'Fale comigo',
+      downloadResume: 'Baixar meu currículo',
     },
     hero: {
       greeting: 'Olá, eu sou',
@@ -369,6 +381,7 @@ export const translations: Record<Language, PortfolioContent> = {
       resumeButton: 'Currículo',
     },
     skills: {
+      whatIDo: 'O que eu faço',
       kicker: 'Habilidades técnicas',
       title: 'Ferramentas práticas para soluções completas',
       subtitle:
@@ -422,6 +435,7 @@ export const translations: Record<Language, PortfolioContent> = {
         'Evolução das bases do desenvolvimento web à automação com IA orientada a negócios.',
       items: [
         {
+          emoji: '🤖',
           role: 'Gerente de Automação',
           company: 'plugue.ia',
           location: 'Remoto',
@@ -443,6 +457,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
         },
         {
+          emoji: '💻',
           role: 'Desenvolvedor Web Júnior',
           company: 'Construsite Brasil',
           location: 'Híbrido',
@@ -462,6 +477,7 @@ export const translations: Record<Language, PortfolioContent> = {
           ],
         },
         {
+          emoji: '🌱',
           role: 'Estagiário em Desenvolvimento Web',
           company: 'Construsite Brasil',
           location: 'Belo Horizonte, Brasil',
@@ -574,6 +590,7 @@ export const translations: Record<Language, PortfolioContent> = {
         'Desenvolvedor Full-Stack & Especialista em Automação com IA, focado na criação de sistemas web, integrações com CRMs e fluxos inteligentes que ajudam empresas a automatizar operações e melhorar o atendimento ao cliente.',
       rights: 'Todos os direitos reservados.',
       backToTop: 'Voltar ao topo',
+      credit: 'Design inspirado no',
     },
   },
 }

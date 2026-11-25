@@ -12,7 +12,7 @@
 
 Meu portfólio profissional **Matheus Henrique Vaz Marques**, Desenvolvedor Full-Stack e Especialista em Automação com IA. A aplicação apresenta experiência, habilidades, projetos, formação acadêmica e canais de contato em uma interface responsiva e bilíngue.
 
-> **English:** Personal portfolio of Matheus Vaz, Full-Stack Developer & AI Automation Specialist. Built with React, TypeScript, Vite and Tailwind CSS, with scroll-driven motion, a bilingual (PT/EN) interface, light/dark themes and live project previews.
+> **English:** Personal portfolio of Matheus Vaz, Full-Stack Developer & AI Automation Specialist. Built with React, TypeScript, Vite and Tailwind CSS, with a bilingual (PT/EN) interface and light/dark themes. The layout is an original implementation inspired by the design of [developerFolio](https://github.com/saadpasta/developerFolio).
 
 ## Projetos em destaque
 
@@ -29,7 +29,8 @@ Além de estudos, o portfólio reúne projetos reais entregues para clientes:
 - Conteúdo em português e inglês, com preferência salva no navegador
 - Temas claro e escuro, também persistidos localmente
 - Layout responsivo com navegação adaptada para dispositivos móveis
-- Animações e transições com respeito à preferência de redução de movimento
+- Animações de entrada com respeito à preferência de redução de movimento
+- Tela de abertura opcional (`splash` em `src/data/profile.ts`)
 - Seções de apresentação, habilidades, experiência, projetos, formação e contato
 - Download do currículo em PDF
 - Links para demonstrações, repositórios e redes profissionais
@@ -40,8 +41,13 @@ Além de estudos, o portfólio reúne projetos reais entregues para clientes:
 - [React](https://react.dev/) e [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Motion](https://motion.dev/) e [Lenis](https://lenis.darkroom.engineering/) para animações e rolagem suave
-- [OGL](https://github.com/oframe/ogl) para o fundo em WebGL do hero
+- [Motion](https://motion.dev/) para as animações de entrada
+- [Simple Icons](https://simpleicons.org/) para os logos de tecnologias
+- Ilustrações originais geradas com o Nano Banana (Gemini), recortadas e animadas no site
+
+## Créditos
+
+O layout é uma implementação própria inspirada no design do [developerFolio](https://github.com/saadpasta/developerFolio), de Saad Pasta. Nenhum código ou asset do projeto original foi copiado.
 
 ## Pré-requisitos
 

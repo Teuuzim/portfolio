@@ -1,46 +1,105 @@
-import { motion } from 'motion/react'
+import type { SimpleIcon } from 'simple-icons'
+import {
+  siCss,
+  siExpress,
+  siGit,
+  siHtml5,
+  siJavascript,
+  siLaravel,
+  siMysql,
+  siNextdotjs,
+  siNodedotjs,
+  siPhp,
+  siReact,
+  siTailwindcss,
+} from 'simple-icons'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
-import { Icon } from './Icon'
-import { SectionHeading } from './SectionHeading'
-import { TiltCard } from './interactive/TiltCard'
+import skillsScene from '../assets/scenes/skills.webp'
+import floatBrowser from '../assets/scenes/float-browser.webp'
+import floatCode from '../assets/scenes/float-code.webp'
+import floatDatabase from '../assets/scenes/float-database.webp'
+import { FloatingScene, type Floater } from './FloatingScene'
+import { Reveal } from './Reveal'
+
+const SKILLS_FLOATERS: Floater[] = [
+  { src: floatBrowser, x: -6, y: 30, width: 18, depth: 1.3, period: 6, sway: -4 },
+  { src: floatCode, x: 84, y: 4, width: 14, depth: 1.6, period: 5, sway: 6 },
+  { src: floatDatabase, x: 86, y: 70, width: 11, depth: 1, period: 7, sway: 3 },
+]
+
+const STACK: { label: string; icon: SimpleIcon }[] = [
+  { label: 'react', icon: siReact },
+  { label: 'next.js', icon: siNextdotjs },
+  { label: 'javascript', icon: siJavascript },
+  { label: 'html-5', icon: siHtml5 },
+  { label: 'css', icon: siCss },
+  { label: 'tailwind', icon: siTailwindcss },
+  { label: 'node.js', icon: siNodedotjs },
+  { label: 'express', icon: siExpress },
+  { label: 'php', icon: siPhp },
+  { label: 'laravel', icon: siLaravel },
+  { label: 'mysql', icon: siMysql },
+  { label: 'git', icon: siGit },
+]
+
+/** Near-black brand colors would vanish on the dark theme, so those follow the text color instead. */
+function hoverColor(hex: string) {
+  const value = parseInt(hex, 16)
+  const luminance = (0.299 * (value >> 16) + 0.587 * ((value >> 8) & 255) + 0.114 * (value & 255)) / 255
+  return luminance < 0.2 ? 'rgb(var(--color-fg))' : `#${hex}`
+}
 
 export function Skills({ language }: { language: Language }) {
   const { skills } = translations[language]
 
   return (
-    <section id="skills" className="section-space scroll-mt-20 overflow-hidden">
-      <div className="container-shell">
-        <SectionHeading kicker={skills.kicker} title={skills.title} subtitle={skills.subtitle} align="center" />
-        <div className="mt-14 grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {skills.groups.map((group, index) => (
-            <motion.div
-              key={group.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+    <section id="skills" className="shell section grid items-center gap-12 lg:grid-cols-2">
+      <Reveal from="left" className="order-2 lg:order-1">
+        <FloatingScene
+          src={skillsScene}
+          width={904}
+          height={885}
+          floaters={SKILLS_FLOATERS}
+          className="mx-auto w-full max-w-[480px]"
+        />
+      </Reveal>
+
+      <Reveal from="right" className="order-1 lg:order-2">
+        <h2 className="section-title">{skills.whatIDo}</h2>
+        <p className="section-subtitle">{skills.title}</p>
+
+        <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-4" aria-label={skills.kicker}>
+          {STACK.map(({ label, icon }) => (
+            <li
+              key={label}
+              className="group flex w-14 flex-col items-center gap-1.5 text-muted transition-colors duration-200"
+              style={{ '--brand': hoverColor(icon.hex) } as React.CSSProperties}
             >
-              <TiltCard className="card h-full p-7" maxTilt={4}>
-                <span className="icon-box">
-                  <Icon name={group.icon} />
-                </span>
-                <h3 className="mt-5 font-display text-xl font-bold tracking-tight text-gray-900 dark:text-slate-50">
-                  {group.title}
-                </h3>
-                <ul className="mt-5 space-y-3">
-                  {group.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm leading-6 text-gray-600 dark:text-slate-300">
-                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500 dark:bg-emerald-300" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </TiltCard>
-            </motion.div>
+              <svg
+                role="img"
+                aria-label={icon.title}
+                viewBox="0 0 24 24"
+                className="h-10 w-10 fill-current transition-[color,transform] duration-200 group-hover:-translate-y-0.5 group-hover:text-[var(--brand)]"
+              >
+                <path d={icon.path} />
+              </svg>
+              <span className="text-[11px] leading-none" aria-hidden="true">
+                {label}
+              </span>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+
+        <ul className="mt-10 space-y-4">
+          {skills.groups.map((group) => (
+            <li key={group.title} className="text-lg leading-snug text-muted">
+              <span aria-hidden="true">⚡ </span>
+              <span className="font-semibold text-fg">{group.title}:</span> {group.items.join(', ')}
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   )
 }
