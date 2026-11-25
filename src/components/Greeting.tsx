@@ -1,10 +1,20 @@
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
 import { profile, resumeHref } from '../data/profile'
-import helloIllustration from '../assets/illustrations/hello.svg'
-import helloIllustrationDark from '../assets/illustrations/hello-dark.svg'
-import { Illustration } from './Illustration'
+import heroScene from '../assets/scenes/hero.webp'
+import floatBolt from '../assets/scenes/float-bolt.webp'
+import floatChat from '../assets/scenes/float-chat.webp'
+import floatCode from '../assets/scenes/float-code.webp'
+import floatGear from '../assets/scenes/float-gear.webp'
+import { FloatingScene, type Floater } from './FloatingScene'
 import { Reveal } from './Reveal'
+
+const HERO_FLOATERS: Floater[] = [
+  { src: floatCode, x: -3, y: 6, width: 17, depth: 1.2, period: 5.5, sway: -5 },
+  { src: floatBolt, x: 87, y: -2, width: 9, depth: 1.7, period: 4.5, sway: 8 },
+  { src: floatChat, x: 85, y: 44, width: 15, depth: 0.9, period: 6.5, sway: 4 },
+  { src: floatGear, x: 0, y: 60, width: 12, depth: 1.4, period: 7, sway: 30 },
+]
 import { SocialMedia } from './SocialMedia'
 
 interface GreetingProps {
@@ -47,13 +57,14 @@ export function Greeting({ language, play }: GreetingProps) {
       </Reveal>
 
       <Reveal from="right" when={play} delay={0.1}>
-        <Illustration
-          light={helloIllustration}
-          dark={helloIllustrationDark}
-          width={880}
-          height={523}
+        <FloatingScene
+          src={heroScene}
+          width={967}
+          height={767}
+          floaters={HERO_FLOATERS}
+          play={play}
           eager
-          className="mx-auto w-full max-w-[600px]"
+          className="mx-auto w-full max-w-[580px]"
         />
       </Reveal>
     </section>

@@ -15,10 +15,18 @@ import {
 } from 'simple-icons'
 import type { Language } from '../hooks/useLanguage'
 import { translations } from '../data/translations'
-import buildingIllustration from '../assets/illustrations/building-a-website.svg'
-import buildingIllustrationDark from '../assets/illustrations/building-a-website-dark.svg'
-import { Illustration } from './Illustration'
+import skillsScene from '../assets/scenes/skills.webp'
+import floatBrowser from '../assets/scenes/float-browser.webp'
+import floatCode from '../assets/scenes/float-code.webp'
+import floatDatabase from '../assets/scenes/float-database.webp'
+import { FloatingScene, type Floater } from './FloatingScene'
 import { Reveal } from './Reveal'
+
+const SKILLS_FLOATERS: Floater[] = [
+  { src: floatBrowser, x: -6, y: 30, width: 18, depth: 1.3, period: 6, sway: -4 },
+  { src: floatCode, x: 84, y: 4, width: 14, depth: 1.6, period: 5, sway: 6 },
+  { src: floatDatabase, x: 86, y: 70, width: 11, depth: 1, period: 7, sway: 3 },
+]
 
 const STACK: { label: string; icon: SimpleIcon }[] = [
   { label: 'react', icon: siReact },
@@ -48,11 +56,11 @@ export function Skills({ language }: { language: Language }) {
   return (
     <section id="skills" className="shell section grid items-center gap-12 lg:grid-cols-2">
       <Reveal from="left" className="order-2 lg:order-1">
-        <Illustration
-          light={buildingIllustration}
-          dark={buildingIllustrationDark}
-          width={702}
-          height={680}
+        <FloatingScene
+          src={skillsScene}
+          width={904}
+          height={885}
+          floaters={SKILLS_FLOATERS}
           className="mx-auto w-full max-w-[480px]"
         />
       </Reveal>

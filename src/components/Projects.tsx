@@ -1,9 +1,7 @@
 import type { Language } from '../hooks/useLanguage'
 import { translations, type ProjectItem } from '../data/translations'
-import chatBotIllustration from '../assets/illustrations/chat-bot.svg'
-import chatBotIllustrationDark from '../assets/illustrations/chat-bot-dark.svg'
+import chatbotScene from '../assets/scenes/chatbot.webp'
 import { Icon } from './Icon'
-import { Illustration } from './Illustration'
 import { Reveal } from './Reveal'
 
 function ProjectImage({ project }: { project: ProjectItem }) {
@@ -21,16 +19,9 @@ function ProjectImage({ project }: { project: ProjectItem }) {
         />
       )
     case 'chat':
+      // No screenshot for a conversational flow, so it gets an illustration of one.
       return (
-        <div className="grid aspect-[16/10] w-full place-items-center bg-line/40 p-8">
-          <Illustration
-            light={chatBotIllustration}
-            dark={chatBotIllustrationDark}
-            width={800}
-            height={714}
-            className="h-full w-auto"
-          />
-        </div>
+        <img src={chatbotScene} alt="" loading="lazy" className="aspect-[16/10] w-full object-cover" />
       )
   }
 }
